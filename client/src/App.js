@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import {
+  MainPage,
+  CountryPage,
+  CityPage,
+  SightPage,
+  AddCityPage,
+  AddCountryPage,
+  AddSightPage,
+} from './pages';
+import { Layout } from './components';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="country/:countryId" element={<CountryPage />} />
+        <Route path="city/:cityId" element={<CityPage />} />
+        <Route path="sight/:sightId" element={<SightPage />} />
+        <Route path="new-country" element={<AddCountryPage />} />
+        <Route path="new-city" element={<AddCityPage />} />
+        <Route path="new-sight" element={<AddSightPage />} />
+      </Routes>
+    </Layout>
   );
 }
 
