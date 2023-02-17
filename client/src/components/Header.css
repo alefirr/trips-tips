@@ -1,0 +1,51 @@
+.header-container {
+  height: 92px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  background-color: #fff;
+  box-shadow: 0px 5px 3px -3px rgb(207, 207, 207);
+  padding: 5px;
+  z-index: 1;
+}
+
+.name-logo-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  left: 15vw;
+  text-decoration: none;
+  margin-right: 7vw;
+}
+
+#name-header {
+  font-size: 2vw;
+  font-weight: 600;
+  color: rgb(0, 0, 0);
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  border-radius: 50%;
+  margin-right: 50px;
+}
+
+.buttons-header-container {
+  width: 20vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  right: 8vw;
+}

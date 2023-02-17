@@ -1,0 +1,9 @@
+.navbar-container {
+  position: absolute;
+  top: 93px;
+  left: 0;
+  right: 0;
+  height: 30px;
+  box-sizing: border-box;
+  background-color: antiquewhite;
+}

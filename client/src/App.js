@@ -8,6 +8,7 @@ import {
   AddCityPage,
   AddCountryPage,
   AddSightPage,
+  LoginPage,
 } from './pages';
 import { Layout } from './components';
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="new-country" element={<AddCountryPage />} />
         <Route path="new-city" element={<AddCityPage />} />
         <Route path="new-sight" element={<AddSightPage />} />
+        <Route path="login" element={<LoginPage />} />
       </Routes>
     </Layout>
   );
