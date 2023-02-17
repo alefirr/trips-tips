@@ -11,23 +11,25 @@
 
   border: 2px solid #019288;
 }
+
 .button-header:hover {
   transition: 0.3s;
   transform: scale(1.1);
 }
-#addsight-button,
-#login-button:active {
+
+.main-button,
+.secondary-button:active {
   background-color: #019288;
   color: white;
 }
 
-#addsight-button:active,
-#login-button {
+.main-button:active,
+.secondary-button {
   background-color: white;
   color: #019288;
 }
 
-#addsight-button:active,
-#login-button:active {
+.main-button:active,
+.secondary-button:active {
   transition: 1ms;
 }

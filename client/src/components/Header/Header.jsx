@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Search } from './Search';
+import { Search } from '../Search/Search';
+import { Button } from '../Button/Button';
 import './Header.css';
-import { Button } from './Button';
 
 export const Header = () => {
   return (
@@ -13,13 +13,8 @@ export const Header = () => {
       </NavLink>
       <Search />
       <div className="buttons-header-container">
-        <Button
-          title="Add Sight"
-          to="new-sight"
-          href="new-sight"
-          id="addsight-button"
-        />
-        <Button title="Log in" to="login" href="login" id="login-button" />
+        <Button title="Add Sight" to="new-sight" href="new-sight" />
+        <Button title="Log in" to="secondary" href="secondary" secondary />
       </div>
     </div>
   );
