@@ -1,0 +1,76 @@
+import Sight from '../models/Sight.js';
+
+export const addSight = async (req, res) => {
+  try {
+    const { name, text } = req.body;
+    const isAdded = await Sight.findOne({ name });
+    if (isAdded) {
+      return res.json({ message: 'This city already exists' });
+    }
+    const newSight = new Sight({
+      name,
+      text,
+    });
+
+    await newSight.save();
+    res.json(newSight);
+  } catch (e) {
+    res.json({ message: 'Error occured during adding sight', e: e.message });
+  }
+};
+
+export const updateSight = async (req, res) => {
+  try {
+    const { name, text, id } = req.body;
+    const sight = await Sight.findById(id);
+    if (sight) {
+      sight.name = name;
+      sight.text = text;
+      await sight.save();
+      return res.json(sight);
+    }
+    res.json({ message: 'No such sight' });
+  } catch (e) {
+    res.json({ message: 'Error occured during updating sight', e: e.message });
+  }
+};
+
+export const getAllSights = async (req, res) => {
+  try {
+    const sights = await Sight.find();
+    if (!sights) {
+      return res.json({ message: 'No sights' });
+    }
+    res.json(sights);
+  } catch (e) {
+    res.json({ message: 'Error occured during getting sights', e: e.message });
+  }
+};
+
+export const getSightById = async (req, res) => {
+  try {
+    const sight = await Sight.findById(req.params.id);
+    if (!sight) {
+      return res.json({ message: 'No such sight' });
+    }
+    res.json(sight);
+  } catch (e) {
+    res.json({ message: 'Error occured during getting sight', e: e.message });
+  }
+};
+
+export const removeSight = async (req, res) => {
+  try {
+    const sight = await Sight.findByIdAndDelete(req.params.id);
+    if (!sight) {
+      return res.json({ message: 'No such sight' });
+    }
+
+    res.json({ message: 'Sight was deleted' });
+  } catch (e) {
+    res.json({
+      message: 'Error occured during removing sight',
+      e: e.message,
+    });
+  }
+};
