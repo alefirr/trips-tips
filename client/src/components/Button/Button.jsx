@@ -1,17 +1,13 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import './Button.css';
 
-export const Button = ({ title, to, href, secondary }) => {
+export const Button = ({ title, secondary, type }) => {
   return (
-    <NavLink
-      to={to}
-      href={href}
-      className={`button-header ${
-        secondary ? `secondary-button` : `main-button`
-      }`}
+    <button
+      type={type}
+      className={`button ${secondary ? `secondary` : `main`} `}
     >
       {title}
-    </NavLink>
+    </button>
   );
 };

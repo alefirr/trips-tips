@@ -8,6 +8,7 @@ import {
   AddCountryPage,
   AddSightPage,
   LoginPage,
+  RegisterPage,
 } from './pages';
 import { Layout } from './components';
 
@@ -22,7 +23,8 @@ function App() {
         <Route path="new-country" element={<AddCountryPage />} />
         <Route path="new-city" element={<AddCityPage />} />
         <Route path="new-sight" element={<AddSightPage />} />
-        <Route path="secondary" element={<LoginPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
       </Routes>
     </Layout>
   );

@@ -13,8 +13,12 @@ export const Header = () => {
       </NavLink>
       <Search />
       <div className="buttons-header-container">
-        <Button title="Add Sight" to="new-sight" href="new-sight" />
-        <Button title="Log in" to="secondary" href="secondary" secondary />
+        <NavLink to="new-sight" href="new-sight">
+          <Button title="Add Sight" />
+        </NavLink>
+        <NavLink to="login" href="secondary">
+          <Button title="Log in" secondary />
+        </NavLink>
       </div>
     </div>
   );
