@@ -2,7 +2,7 @@ import City from '../models/City.js';
 
 export const addCity = async (req, res) => {
   try {
-    const { name, text } = req.body;
+    const { name, text, country } = req.body;
     const isAdded = await City.findOne({ name });
     if (isAdded) {
       return res.json({ message: 'This city already exists' });
@@ -10,6 +10,7 @@ export const addCity = async (req, res) => {
     const newCity = new City({
       name,
       text,
+      country,
     });
 
     await newCity.save();
@@ -60,7 +61,7 @@ export const getCityById = async (req, res) => {
 };
 
 export const removeCity = async (req, res) => {
-    try {
+  try {
     const city = await City.findByIdAndDelete(req.params.id);
     if (!city) {
       return res.json({ message: 'No such city' });
@@ -71,5 +72,6 @@ export const removeCity = async (req, res) => {
     res.json({
       message: 'Error occured during removing city',
       e: e.message,
-    });}
+    });
+  }
 };

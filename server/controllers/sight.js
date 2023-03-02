@@ -1,18 +1,31 @@
 import Sight from '../models/Sight.js';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 export const addSight = async (req, res) => {
   try {
-    const { name, text } = req.body;
+    const { imgUrl, name, text, city, type } = req.body;
     const isAdded = await Sight.findOne({ name });
+
     if (isAdded) {
       return res.json({ message: 'This city already exists' });
     }
+
+    // if (req.files) {
+    //   let fileName = Date.now().toString() + req.files.image.name;
+    //   const __dirname = dirname(fileURLToPath(import.meta.url));
+    //   req.files.image.mv(path.join(__dirname, '..', 'uploads', fileName));
+    // }
     const newSight = new Sight({
       name,
       text,
+      imgUrl,
+      type,
+      city,
     });
 
     await newSight.save();
+    console.log(newSight);
     res.json(newSight);
   } catch (e) {
     res.json({ message: 'Error occured during adding sight', e: e.message });

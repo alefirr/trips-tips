@@ -2,16 +2,17 @@ import Country from '../models/Country.js';
 
 export const addCountry = async (req, res) => {
   try {
-    const { name, text } = req.body;
+    const { name, text, continent } = req.body;
     const isAdded = await Country.findOne({ name });
 
     if (isAdded) {
-      return res.json({ message: 'This country already exists' });
+      return res.json({ message: 'This country already exists', status: 400 });
     }
 
     const newCountry = new Country({
       name,
       text,
+      continent,
     });
 
     await newCountry.save();
@@ -20,6 +21,7 @@ export const addCountry = async (req, res) => {
     res.json({
       message: 'Error occured during creation new country',
       e: e.message,
+      status: 400,
     });
   }
 };
