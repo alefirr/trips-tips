@@ -68,7 +68,7 @@ export const countrySlice = createSlice({
     },
     [addCountry.fulfilled]: (state, action) => {
       state.loading = false;
-      state.countries.push(action.payload);
+      state.list.push(action.payload);
     },
     [addCountry.rejected]: (state) => {
       state.loading = false;

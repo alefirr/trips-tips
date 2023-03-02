@@ -25,7 +25,7 @@ export const AddSightPage = () => {
   const submitHandler = () => {
     try {
       const formData = new FormData();
-      formData.append('imgUrl', sightPicture);
+      formData.append('img', sightPicture);
       formData.append('name', sightName);
       formData.append('text', sightText);
       formData.append('city', sightCityId);

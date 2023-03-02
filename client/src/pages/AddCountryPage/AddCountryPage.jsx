@@ -21,7 +21,7 @@ export const AddCountryPage = () => {
   const submitHandler = () => {
     try {
       const formData = new FormData();
-      formData.append('imgUrl', countryPicture);
+      formData.append('img', countryPicture);
       formData.append('name', countryName);
       formData.append('text', countryText);
       formData.append('continent', countryContinentId);
@@ -66,7 +66,7 @@ export const AddCountryPage = () => {
             onChange={(e) => setCountryText(e.target.value)}
           />
         </label>
-        <label for="continent" className="add-country-label">
+        <label htmlFor="continent" className="add-country-label">
           Add country location:
           <select
             id="continent"

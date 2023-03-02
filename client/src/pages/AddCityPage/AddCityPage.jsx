@@ -21,7 +21,7 @@ export const AddCityPage = () => {
   const submitHandler = () => {
     try {
       const formData = new FormData();
-      formData.append('imgUrl', cityPicture);
+      formData.append('img', cityPicture);
       formData.append('name', cityName);
       formData.append('text', cityText);
       formData.append('country', cityCountryId);

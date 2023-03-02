@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 
 export const addSight = async (req, res) => {
   try {
-    const { imgUrl, name, text, city, type } = req.body;
+    const { img, name, text, city, type } = req.body;
     const isAdded = await Sight.findOne({ name });
 
     if (isAdded) {
@@ -19,7 +19,7 @@ export const addSight = async (req, res) => {
     const newSight = new Sight({
       name,
       text,
-      imgUrl,
+      img,
       type,
       city,
     });
