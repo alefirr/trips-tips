@@ -18,7 +18,11 @@ export const addCity = async (req, res) => {
     await newCity.save();
     res.json(newCity);
   } catch (e) {
-    res.json({ message: 'Error occured during adding city', e: e.message });
+    res.json({
+      status: 400,
+      message: 'Error occured during adding city',
+      e: e.message,
+    });
   }
 };
 
@@ -34,7 +38,11 @@ export const updateCity = async (req, res) => {
     }
     res.json({ message: 'No such city' });
   } catch (e) {
-    res.json({ message: 'Error occured during updating city', e: e.message });
+    res.json({
+      status: 400,
+      message: 'Error occured during updating city',
+      e: e.message,
+    });
   }
 };
 
@@ -46,7 +54,11 @@ export const getAllCities = async (req, res) => {
     }
     res.json(cities);
   } catch (e) {
-    res.json({ message: 'Error occured during getting cities', e: e.message });
+    res.json({
+      status: 400,
+      message: 'Error occured during getting cities',
+      e: e.message,
+    });
   }
 };
 
@@ -58,7 +70,11 @@ export const getCityById = async (req, res) => {
     }
     res.json(city);
   } catch (e) {
-    res.json({ message: 'Error occured during getting city', e: e.message });
+    res.json({
+      status: 400,
+      message: 'Error occured during getting city',
+      e: e.message,
+    });
   }
 };
 
@@ -72,6 +88,7 @@ export const removeCity = async (req, res) => {
     res.json({ message: 'City was deleted' });
   } catch (e) {
     res.json({
+      status: 400,
       message: 'Error occured during removing city',
       e: e.message,
     });

@@ -11,6 +11,7 @@ export const getAllTypes = async (req, res) => {
     res.json({
       message: 'Error occured during getting types',
       e: e.message,
+      status: 400,
     });
   }
 };

@@ -24,7 +24,11 @@ export const register = async (req, res) => {
     await newUser.save();
     res.json({ newUser, message: 'The registration suceeded' });
   } catch (e) {
-    res.json({ message: 'Error occured during registration', e: e.message });
+    res.json({
+      status: 400,
+      message: 'Error occured during registration',
+      e: e.message,
+    });
   }
 };
 
@@ -44,6 +48,7 @@ export const login = async (req, res) => {
     }
   } catch (e) {
     res.json({
+      status: 400,
       message: 'Error occured during login',
       e: e.message,
     });

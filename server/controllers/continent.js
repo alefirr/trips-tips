@@ -8,6 +8,10 @@ export const getAllContinents = async (req, res) => {
     }
     res.json(continents);
   } catch (e) {
-    res.json({ message: 'Error during getting all continents', e: e.message });
+    res.json({
+      status: 400,
+      message: 'Error during getting all continents',
+      e: e.message,
+    });
   }
 };
