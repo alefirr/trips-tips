@@ -9,7 +9,7 @@ import {
   AddSightPage,
   LoginPage,
   RegisterPage,
-} from './pages';
+} from './components/pages';
 import { Layout } from './components';
 
 function App() {

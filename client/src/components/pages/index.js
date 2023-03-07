@@ -1,9 +1,9 @@
 export { AddCityPage } from './AddCityPage/AddCityPage';
 export { AddCountryPage } from './AddCountryPage/AddCountryPage';
 export { AddSightPage } from './AddSightPage/AddSightPage';
-export { MainPage } from './MainPage/MainPage';
+export { MainPage } from './MainPage';
 export { LoginPage } from './LoginPage';
 export { RegisterPage } from './RegisterPage';
 export { CityPage } from './CityPage/CityPage';
-export { CountryPage } from './CountryPage/CountryPage';
+export { CountryPage } from './CountryPage';
 export { SightPage } from './SightPage/SightPage';

@@ -1,1 +1,0 @@
-export { AddSightPage } from './AddSightPage';
