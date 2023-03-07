@@ -8,19 +8,19 @@ export const ListPage = ({ title, entityName, fetcher, selector }) => {
   const data = useSelector(selector);
 
   useEffect(() => {
-    dispatch(fetcher);
+    dispatch(fetcher());
   }, [fetcher, dispatch]);
 
   const addPageLink = `new-${entityName}`;
   const addButtonText = `Add new ${entityName}`;
 
   return (
-    <div>
+    <>
       <Title>{title}</Title>
       <Carousel tiles={data} entityRoute={entityName} />
       <Link to={addPageLink}>
         <Button title={addButtonText} secondary />
       </Link>
-    </div>
+    </>
   );
 };

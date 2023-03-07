@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header } from '../../ui';
-import { NavBar } from '../../ui/NavBar/NavBar';
+import { Header } from './Header';
+import { NavBar } from '../../ui/';
 import './Layout.css';
 
 export const Layout = ({ children }) => {

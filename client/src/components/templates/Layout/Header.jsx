@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Search, Button } from '..';
+import { Search, Button } from '../../ui';
 import './Header.css';
 
 export const Header = () => {
