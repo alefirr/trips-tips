@@ -3,12 +3,17 @@ import { Button } from '../Button';
 import { Tile } from './Tile';
 import './Carousel.css';
 
-export const Carousel = ({ tiles, route }) => {
+export const Carousel = ({ tiles, entityRoute }) => {
   const [rightCounter, setRightCounter] = useState(3);
   const [leftCounter, setLeftCounter] = useState(0);
 
   if (!tiles?.length) {
-    return null;
+    return (
+      <p className="no-data-text">
+        <p>No data to display :(</p>
+        <p>Press the button below to add something!</p>
+      </p>
+    );
   }
 
   const handleRightButtonClick = () => {
@@ -47,7 +52,7 @@ export const Carousel = ({ tiles, route }) => {
         (tile, index) =>
           index >= leftCounter &&
           index <= rightCounter && (
-            <Tile tile={tile} route={route} key={tile._id} />
+            <Tile tile={tile} route={entityRoute} key={tile._id} />
           )
       )}
       <Button
