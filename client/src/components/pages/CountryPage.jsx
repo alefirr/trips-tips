@@ -6,15 +6,18 @@ import { ListPage } from '../templates';
 
 export const CountryPage = () => {
   const { countryId } = useParams();
+
   const countryName = useSelector(
     (state) =>
       state.country.list.find((country) => country._id === countryId).name
   );
 
+  const pageTitle = `Explore ${countryName}`;
+
   return (
     <ListPage
-      title={`Explore ${countryName}`}
-      entityName="city"
+      title={pageTitle}
+      displayEntity="city"
       fetcher={getAllCities}
       selector={(state) =>
         state.city.list.filter((city) => city.country === countryId)
