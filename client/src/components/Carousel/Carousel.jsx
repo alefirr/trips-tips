@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Button } from '../Button';
-import { Tile } from '../Tile';
+import { Tile } from './Tile';
 import './Carousel.css';
 
 export const Carousel = ({ tiles, route }) => {
   const [rightCounter, setRightCounter] = useState(3);
   const [leftCounter, setLeftCounter] = useState(0);
+
+  if (!tiles?.length) {
+    return null;
+  }
 
   const handleRightButtonClick = () => {
     if (rightCounter < tiles.length - 1 && rightCounter >= 3) {
@@ -38,7 +42,7 @@ export const Carousel = ({ tiles, route }) => {
         secondary
         onClick={handleLeftButtonClick}
         width="50px"
-      ></Button>
+      />
       {tiles.map(
         (tile, index) =>
           index >= leftCounter &&
@@ -51,7 +55,7 @@ export const Carousel = ({ tiles, route }) => {
         secondary
         onClick={handleRightButtonClick}
         width="50px"
-      ></Button>
+      />
     </div>
   );
 };
