@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '../../components/Button/Button';
-import { getAllContinents } from '../../redux/slices/continentSlice';
-import { addCountry } from '../../redux/slices/countrySlice';
+import { Button } from '../../ui/Button/Button';
+import { getAllContinents } from '../../../redux/slices/continentSlice';
+import { addCountry } from '../../../redux/slices/countrySlice';
 import './AddCountryPage.css';
 
 export const AddCountryPage = () => {
