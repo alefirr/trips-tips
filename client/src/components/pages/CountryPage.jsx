@@ -1,15 +1,25 @@
 import React from 'react';
-import { getCountryCities } from '../../redux/slices/countrySlice';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getAllCities } from '../../redux/slices/countrySlice';
 import { ListPage } from '../templates';
 import './CountryPage.css';
 
 export const CountryPage = () => {
+  const { countryId } = useParams();
+  const countryName = useSelector(
+    (state) =>
+      state.country.list.find((country) => country._id === countryId).name
+  );
+
   return (
     <ListPage
-      title={(country) => `Explore ${country.name}`}
+      title={`Explore ${countryName}`}
       entityName="city"
-      fetcher={getCountryCities}
-      selector={(state) => state.country.list}
+      fetcher={getAllCities}
+      selector={(state) =>
+        state.city.list.filter((city) => city.country === countryId)
+      }
     />
   );
 };

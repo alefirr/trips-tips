@@ -11,7 +11,7 @@ export const AddPage = ({ title, entityName, fetcher, selector }) => {
     dispatch(fetcher);
   }, [fetcher, dispatch]);
 
-  const addPageLink = `/new-${entityName}`;
+  const addPageLink = `new-${entityName}`;
   const addButtonText = `Add new ${entityName}`;
 
   return (
