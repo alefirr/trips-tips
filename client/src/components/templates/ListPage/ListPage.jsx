@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Title, Button, Carousel } from '../../ui';
+import './ListPage.css';
 
 export const ListPage = ({ title, entityName, fetcher, selector }) => {
   const dispatch = useDispatch();
@@ -17,7 +18,14 @@ export const ListPage = ({ title, entityName, fetcher, selector }) => {
   return (
     <>
       <Title>{title}</Title>
-      <Carousel tiles={data} entityRoute={entityName} />
+      {data?.length ? (
+        <Carousel tiles={data} entityRoute={entityName} />
+      ) : (
+        <div className="no-data-text">
+          <p>No data to display :(</p>
+          <p>Press the button below to add something!</p>
+        </div>
+      )}
       <Link to={addPageLink}>
         <Button title={addButtonText} secondary />
       </Link>

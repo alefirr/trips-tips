@@ -7,15 +7,6 @@ export const Carousel = ({ tiles, entityRoute }) => {
   const [rightCounter, setRightCounter] = useState(3);
   const [leftCounter, setLeftCounter] = useState(0);
 
-  if (!tiles?.length) {
-    return (
-      <p className="no-data-text">
-        <p>No data to display :(</p>
-        <p>Press the button below to add something!</p>
-      </p>
-    );
-  }
-
   const handleRightButtonClick = () => {
     if (rightCounter < tiles.length - 1 && rightCounter >= 3) {
       setRightCounter((prev) => ++prev);
