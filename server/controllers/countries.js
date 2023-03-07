@@ -18,10 +18,9 @@ export const addCountry = async (req, res) => {
     await newCountry.save();
     res.json(newCountry);
   } catch (e) {
-    res.json({
+    res.status(400).json({
       message: 'Error occured during creation new country',
       e: e.message,
-      status: 400,
     });
   }
 };
@@ -38,8 +37,7 @@ export const updateCountry = async (req, res) => {
     }
     res.json({ message: 'No such country' });
   } catch (e) {
-    res.json({
-      status: 400,
+    res.status(400).json({
       message: 'Error occured during editing country',
       e: e.message,
     });
@@ -54,10 +52,9 @@ export const getAllCountries = async (req, res) => {
     }
     res.json(countries);
   } catch (e) {
-    res.json({
+    res.status(400).json({
       message: 'Error occured during getting countries',
       e: e.message,
-      status: 400,
     });
   }
 };
@@ -70,8 +67,7 @@ export const getCountryById = async (req, res) => {
     }
     res.json(country);
   } catch (e) {
-    res.json({
-      status: 400,
+    res.status(400).json({
       message: 'Error occured during getting country',
       e: e.message,
     });
@@ -87,8 +83,7 @@ export const removeCountry = async (req, res) => {
 
     res.json({ message: 'Countr was deleted' });
   } catch (e) {
-    res.json({
-      status: 400,
+    res.status(400).json({
       message: 'Error occured during removing country',
       e: e.message,
     });

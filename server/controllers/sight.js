@@ -28,8 +28,7 @@ export const addSight = async (req, res) => {
     console.log(newSight);
     res.json(newSight);
   } catch (e) {
-    res.json({
-      status: 400,
+    res.status(400).json({
       message: 'Error occured during adding sight',
       e: e.message,
     });
@@ -48,8 +47,7 @@ export const updateSight = async (req, res) => {
     }
     res.json({ message: 'No such sight' });
   } catch (e) {
-    res.json({
-      status: 400,
+    res.status(400).json({
       message: 'Error occured during updating sight',
       e: e.message,
     });
@@ -64,8 +62,7 @@ export const getAllSights = async (req, res) => {
     }
     res.json(sights);
   } catch (e) {
-    res.json({
-      status: 400,
+    res.status(400).json({
       message: 'Error occured during getting sights',
       e: e.message,
     });
@@ -80,8 +77,7 @@ export const getSightById = async (req, res) => {
     }
     res.json(sight);
   } catch (e) {
-    res.json({
-      status: 400,
+    res.status(400).json({
       message: 'Error occured during getting sight',
       e: e.message,
     });
@@ -97,10 +93,9 @@ export const removeSight = async (req, res) => {
 
     res.json({ message: 'Sight was deleted' });
   } catch (e) {
-    res.json({
+    res.status(400).json({
       message: 'Error occured during removing sight',
       e: e.message,
-      status: 400,
     });
   }
 };

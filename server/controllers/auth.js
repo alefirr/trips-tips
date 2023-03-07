@@ -24,8 +24,7 @@ export const register = async (req, res) => {
     await newUser.save();
     res.json({ newUser, message: 'The registration suceeded' });
   } catch (e) {
-    res.json({
-      status: 400,
+    res.status(400).json({
       message: 'Error occured during registration',
       e: e.message,
     });
@@ -47,8 +46,7 @@ export const login = async (req, res) => {
       return res.json({ message: 'Wrong password' });
     }
   } catch (e) {
-    res.json({
-      status: 400,
+    res.status(400).json({
       message: 'Error occured during login',
       e: e.message,
     });
