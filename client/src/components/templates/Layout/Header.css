@@ -1,3 +1,7 @@
+.header-placeholder {
+  height: 92px;
+}
+
 .header-container {
   height: 92px;
   box-sizing: border-box;
@@ -5,9 +9,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 
   background-color: #fff;
   box-shadow: 0px 5px 3px -3px rgb(207, 207, 207);
+  z-index: 1;
 }
 
 .name-logo-container {
