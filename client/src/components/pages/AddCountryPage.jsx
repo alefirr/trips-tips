@@ -22,6 +22,7 @@ const inputs = [
     id: 'continent',
     type: 'select',
     label: 'Add country location:',
+    placeholder: 'Select continent',
     optionsSelector: (state) => state.continent.list,
   },
 ];
@@ -29,7 +30,7 @@ const inputs = [
 export const AddCountryPage = () => {
   return (
     <EditPage
-      title="Add country"
+      entity="country"
       inputs={inputs}
       dispatcher={addCountry}
       preloaders={[getAllContinents]}

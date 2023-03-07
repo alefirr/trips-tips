@@ -22,12 +22,14 @@ const inputs = [
     id: 'city',
     type: 'select',
     label: 'Add sight location:',
+    placeholder: 'Select city',
     optionsSelector: (state) => state.city.list,
   },
   {
     id: 'type',
     type: 'select',
     label: 'Add sight type:',
+    placeholder: 'Select type',
     optionsSelector: (state) => state.type.list,
   },
 ];
@@ -35,7 +37,7 @@ const inputs = [
 export const AddSightPage = () => {
   return (
     <EditPage
-      title="Add sight"
+      entity="sight"
       inputs={inputs}
       dispatcher={addSight}
       preloaders={[getAllTypes, getAllCities]}

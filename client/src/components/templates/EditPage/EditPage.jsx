@@ -1,31 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../../ui';
 import { DataInput } from './DataInput';
 import './EditPage.css';
 
 export const EditPage = ({
-  initialData = {},
+  initialData,
   inputs,
-  title,
+  entity,
   dispatcher,
   preloaders = [],
 }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [data, setData] = useState(initialData);
+
+  const [data, setData] = useState(initialData || {});
 
   useEffect(() => {
     preloaders.forEach((preloader) => dispatch(preloader()));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, ...preloaders]);
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     try {
-      dispatch(dispatcher(data));
-    } catch (error) {
-      console.log(error);
+      const res = await dispatch(dispatcher(data));
+      navigate(`/${entity}/${res.payload._id}`);
+    } catch ({ e }) {
+      alert(e || 'Something went wrong :(');
     }
   };
+
+  const actionName = initialData ? 'Edit' : 'Add';
+  const title = `${actionName} ${entity}`;
+
+  const goBack = () => navigate(-1);
 
   return (
     <div className="container">
@@ -40,8 +49,8 @@ export const EditPage = ({
           />
         ))}
         <div className="button-container">
-          <Button title="Add" onClick={submitHandler} />
-          <Button title="Cancel" secondary />
+          <Button title={actionName} onClick={submitHandler} />
+          <Button onClick={goBack} title="Cancel" secondary />
         </div>
       </div>
     </div>

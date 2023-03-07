@@ -22,7 +22,7 @@ export const ListPage = ({ title, displayEntity, fetcher, selector }) => {
         <Carousel tiles={data} entityRoute={displayEntity} />
       ) : (
         <div className="no-data-text">
-          <p>No data to display :(</p>
+          <p>No data to display fot now :(</p>
           <p>Press the button below to add something!</p>
         </div>
       )}

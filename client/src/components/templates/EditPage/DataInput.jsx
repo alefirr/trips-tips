@@ -41,11 +41,12 @@ const CheckboxInput = ({ value, setter }) => (
   />
 );
 
-const SelectInput = ({ optionsSelector, value, setter }) => {
+const SelectInput = ({ optionsSelector, value, setter, placeholder }) => {
   const options = useSelector(optionsSelector);
 
   return (
     <select value={value} onChange={(e) => setter(e.target.value)}>
+      <option selected>{placeholder}</option>
       {options.map(({ _id, name }) => (
         <option key={_id} value={_id}>
           {name}
