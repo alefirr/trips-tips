@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '../../ui';
 import './LoginPage.css';
-import '../../components/Button/Button.css';
-import { Button } from '../../components/Button/Button';
 
 export const LoginPage = () => {
   return (

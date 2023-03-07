@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { Button } from '../../components/Button';
-import { Carousel } from '../../components/Carousel';
-import { getAllCities } from '../../redux/slices/citySlice';
-import { getAllSights } from '../../redux/slices/sightSlice';
+import { Button, Carousel } from '../../ui';
+import { getAllCities, getAllSights } from '../../../redux';
 import './CityPage.css';
 
 export const CityPage = () => {

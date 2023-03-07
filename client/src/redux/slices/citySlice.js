@@ -103,4 +103,4 @@ export const citySlice = createSlice({
   },
 });
 
-export default citySlice.reducer;
+export const citySliceReducer = citySlice.reducer;

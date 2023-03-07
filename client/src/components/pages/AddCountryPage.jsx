@@ -1,6 +1,5 @@
 import React from 'react';
-import { getAllContinents } from '../../../redux/continents/continentsActions';
-import { addCountry } from '../../redux/slices/countrySlice';
+import { getAllContinents, addCountry } from '../../redux';
 import { EditPage } from '../templates';
 
 const inputs = [

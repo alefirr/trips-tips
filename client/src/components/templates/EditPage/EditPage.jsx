@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from '../../ui';
 import { DataInput } from './DataInput';
-import './AddCountryPage.css';
 
 export const EditPage = ({
   initialData = {},

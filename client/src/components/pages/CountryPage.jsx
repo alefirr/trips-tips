@@ -1,9 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getAllCities } from '../../redux/slices/countrySlice';
+import { getAllCities } from '../../redux';
 import { ListPage } from '../templates';
-import './CountryPage.css';
 
 export const CountryPage = () => {
   const { countryId } = useParams();

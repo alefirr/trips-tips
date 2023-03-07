@@ -114,4 +114,4 @@ export const countrySlice = createSlice({
   },
 });
 
-export default countrySlice.reducer;
+export const countrySliceReducer = countrySlice.reducer;

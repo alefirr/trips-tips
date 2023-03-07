@@ -1,8 +1,6 @@
 import React from 'react';
-import { addCity } from '../../redux/slices/citySlice';
-import { getAllCountries } from '../../redux/slices/countrySlice';
+import { addCity, getAllCountries } from '../../redux';
 import { EditPage } from '../templates';
-import './AddCityPage.css';
 
 const inputs = [
   {

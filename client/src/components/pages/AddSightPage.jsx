@@ -1,9 +1,6 @@
 import React from 'react';
-import { addSight } from '../../redux/slices/sightSlice';
-import { getAllTypes } from '../../redux/slices/typeSlice';
-import { getAllCities } from '../../redux/slices/citySlice';
+import { addSight, getAllTypes, getAllCities } from '../../redux';
 import { EditPage } from '../templates';
-import './AddSightPage.css';
 
 const inputs = [
   {

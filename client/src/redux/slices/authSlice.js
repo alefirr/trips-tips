@@ -6,10 +6,11 @@ const initialState = {
   isLoading: false,
   status: null,
 };
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
 });
 
-export default authSlice.reducer;
+export const authSliceReducer = authSlice.reducer;

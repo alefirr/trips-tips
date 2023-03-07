@@ -1,7 +1,6 @@
 import React from 'react';
-import { getAllCountries } from '../../redux/slices/countrySlice';
+import { getAllCountries } from '../../redux';
 import { ListPage } from '../templates';
-import './MainPage.css';
 
 export const MainPage = () => {
   return (

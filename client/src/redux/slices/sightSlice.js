@@ -105,4 +105,4 @@ export const sightSlice = createSlice({
   },
 });
 
-export default sightSlice.reducer;
+export const sightSliceReducer = sightSlice.reducer;

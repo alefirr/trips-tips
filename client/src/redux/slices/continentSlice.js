@@ -36,4 +36,4 @@ export const continentSlice = createSlice({
   },
 });
 
-export default continentSlice.reducer;
+export const continentSliceReducer = continentSlice.reducer;

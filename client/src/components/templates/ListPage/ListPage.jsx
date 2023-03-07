@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Title, Button, Carousel } from '../../ui';
 
-export const AddPage = ({ title, entityName, fetcher, selector }) => {
+export const ListPage = ({ title, entityName, fetcher, selector }) => {
   const dispatch = useDispatch();
   const data = useSelector(selector);
 

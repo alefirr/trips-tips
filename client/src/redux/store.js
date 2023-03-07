@@ -1,19 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import authSlice from './slices/authSlice';
-import sightSlice from './slices/sightSlice';
-import typeSlice from './slices/typeSlice';
-import citySlice from './slices/citySlice';
-import continentSlice from './slices/continentSlice';
-import countrySlice from './slices/countrySlice';
+import {
+  authSliceReducer,
+  sightSliceReducer,
+  typeSliceReducer,
+  citySliceReducer,
+  countrySliceReducer,
+  continentSliceReducer,
+} from './slices';
 
 export const store = configureStore({
   reducer: {
-    auth: authSlice,
-    sight: sightSlice,
-    type: typeSlice,
-    city: citySlice,
-    country: countrySlice,
-    continent: continentSlice,
+    auth: authSliceReducer,
+    sight: sightSliceReducer,
+    type: typeSliceReducer,
+    city: citySliceReducer,
+    country: countrySliceReducer,
+    continent: continentSliceReducer,
   },
 });

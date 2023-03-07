@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getAllSights } from '../../redux/slices/sightSlice';
-import { getAllTypes } from '../../redux/slices/typeSlice';
-import { getAllCities } from '../../redux/slices/citySlice';
+import { getAllSights, getAllTypes, getAllCities } from '../../../redux';
 
 export const SightPage = () => {
   const dispatch = useDispatch();
