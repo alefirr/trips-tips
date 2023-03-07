@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Search } from '../Search/Search';
-import { Button } from '../Button/Button';
+import { Search, Button } from '..';
 import './Header.css';
 
 export const Header = () => {
