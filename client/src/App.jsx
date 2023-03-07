@@ -18,10 +18,13 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="country/:countryId" element={<CountryPage />} />
-        <Route path="city/:cityId" element={<CityPage />} />
-        <Route path="sight/:sightId" element={<SightPage />} />
-        <Route path="new-country" element={<AddCountryPage />} />
-        <Route path="new-city" element={<AddCityPage />} />
+        <Route path="country/:countryId/city/:cityId" element={<CityPage />} />
+        <Route
+          path="country/:countryId/city/:cityId/sight/:sightId"
+          element={<SightPage />}
+        />
+        <Route path="/new-country" element={<AddCountryPage />} />
+        <Route path="country/:countryId/new-city" element={<AddCityPage />} />
         <Route path="new-sight" element={<AddSightPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />

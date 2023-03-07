@@ -2,7 +2,7 @@ import City from '../models/City.js';
 
 export const addCity = async (req, res) => {
   try {
-    const { name, text, country } = req.body;
+    const { name, text, country, isCapital, population } = req.body;
     const isAdded = await City.findOne({ name });
     if (isAdded) {
       return res.json({ message: 'This city already exists' });
@@ -11,6 +11,8 @@ export const addCity = async (req, res) => {
       name,
       text,
       country,
+      isCapital,
+      population,
     });
 
     await newCity.save();

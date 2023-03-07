@@ -1,5 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { Button } from '../../components/Button';
+import { Carousel } from '../../components/Carousel';
+import { getAllCities } from '../../redux/slices/citySlice';
+import { getAllSights } from '../../redux/slices/sightSlice';
+import './CityPage.css';
 
 export const CityPage = () => {
-  return <div>CityPage</div>;
+  const dispatch = useDispatch();
+  const { cityId } = useParams();
+  const city = useSelector((state) => state.city.list).filter(
+    (city) => city._id === cityId
+  )[0];
+  const sights = useSelector((state) => state.sight.list).filter(
+    (sight) => sight.city === cityId
+  );
+
+  useEffect(() => {
+    dispatch(getAllCities());
+    dispatch(getAllSights());
+  }, [dispatch]);
+  console.log(city, sights);
+
+  return (
+    <div className="city-page-container">
+      <h1 className="city-page-header">Explore {city?.name}</h1>
+      <Carousel tiles={sights} route="sight" />
+      <Link to="new-sight">
+        <Button title="Add new sight" secondary />
+      </Link>
+    </div>
+  );
 };

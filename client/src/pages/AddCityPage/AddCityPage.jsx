@@ -10,6 +10,8 @@ export const AddCityPage = () => {
   const [cityText, setCityText] = useState('');
   const [cityPicture, setCityPicture] = useState('');
   const [cityCountryId, setCityCountryId] = useState('');
+  const [cityIsCapital, setCityIsCapital] = useState(false);
+  const [cityPopulation, setCityPopulation] = useState(0);
 
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.country.list);
@@ -25,13 +27,15 @@ export const AddCityPage = () => {
       formData.append('name', cityName);
       formData.append('text', cityText);
       formData.append('country', cityCountryId);
+      formData.append('isCapital', cityIsCapital);
+      formData.append('population', cityPopulation);
       dispatch(addCity(formData));
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(cityCountryId);
+  const cancelHandler = () => {};
 
   return (
     <div className="add-city-container">
@@ -83,9 +87,23 @@ export const AddCityPage = () => {
             ))}
           </select>
         </label>
+        <label className="add-city-label">
+          Is it a capital?
+          <input
+            type="checkbox"
+            onChange={(e) => setCityIsCapital(e.target.value === 'on')}
+          />
+        </label>
+        <label className="add-city-label">
+          Add city population:
+          <input
+            type="number"
+            onChange={(e) => setCityPopulation(e.target.value)}
+          />
+        </label>
         <div className="add-city-button-container">
           <Button title="Add" onClick={submitHandler} />
-          <Button title="Cancel" secondary />
+          <Button title="Cancel" secondary onClick={cancelHandler} />
         </div>
       </form>
     </div>

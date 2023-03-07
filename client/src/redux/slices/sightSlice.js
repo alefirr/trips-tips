@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../utils/axios';
 
 const initialState = {
-  sights: [],
+  list: [],
   loading: false,
 };
 
@@ -59,7 +59,7 @@ export const sightSlice = createSlice({
     },
     [addSight.fulfilled]: (state, action) => {
       state.loading = false;
-      state.sights.push(action.payload);
+      state.list.push(action.payload);
     },
     [addSight.rejected]: (state) => {
       state.loading = false;
@@ -70,7 +70,7 @@ export const sightSlice = createSlice({
     },
     [getAllSights.fulfilled]: (state, action) => {
       state.loading = false;
-      state.sights = action.payload.sights;
+      state.list = action.payload;
     },
     [getAllSights.rejected]: (state) => {
       state.loading = false;
@@ -81,7 +81,7 @@ export const sightSlice = createSlice({
     },
     [removeSight.fulfilled]: (state, action) => {
       state.loading = false;
-      state.sights = state.sights.filter(
+      state.list = state.list.filter(
         (sight) => sight._id !== action.payload._id
       );
     },
@@ -94,10 +94,10 @@ export const sightSlice = createSlice({
     },
     [updateSight.fulfilled]: (state, action) => {
       state.loading = false;
-      const index = state.sights.findIndex(
+      const index = state.list.findIndex(
         (sight) => sight._id === action.payload._id
       );
-      state.sights[index] = action.payload;
+      state.list[index] = action.payload;
     },
     [updateSight.rejected]: (state) => {
       state.loading = false;
