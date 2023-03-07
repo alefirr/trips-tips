@@ -7,12 +7,12 @@ const initialState = {
 };
 
 export const addCity = createAsyncThunk('post/addCity', async (params) => {
-  try {
-    const { data } = await axios.post('/cities', params);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+  // try {
+  const { data } = await axios.post('/cities', params);
+  return data;
+  // } catch (error) {
+  //   console.log(error);
+  // }
 });
 
 export const getAllCities = createAsyncThunk('city/getAllCities', async () => {

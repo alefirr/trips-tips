@@ -34,3 +34,9 @@
   right: 50px;
   bottom: 35px;
 }
+
+.error-msg {
+  color: red;
+  font-size: 18px;
+  margin-top: 25px;
+}

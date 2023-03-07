@@ -7,12 +7,12 @@ const initialState = {
 };
 
 export const getAllTypes = createAsyncThunk('type/getAllTypes', async () => {
-  try {
-    const { data } = await axios.get('/types');
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+  // try {
+  const { data } = await axios.get('/types');
+  return data;
+  // } catch (error) {
+  //   console.log(error);
+  // }
 });
 
 export const typeSlice = createSlice({

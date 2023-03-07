@@ -9,12 +9,12 @@ const initialState = {
 export const addCountry = createAsyncThunk(
   'country/addCountry',
   async (params) => {
-    try {
-      const { data } = await axios.post('/countries', params);
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    const { data } = await axios.post('/countries', params);
+    return data;
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 );
 

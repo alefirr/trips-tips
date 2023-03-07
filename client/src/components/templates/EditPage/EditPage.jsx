@@ -14,6 +14,7 @@ export const EditPage = ({
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [error, setError] = useState([]);
 
   const [data, setData] = useState(initialData || {});
 
@@ -26,8 +27,10 @@ export const EditPage = ({
     try {
       const res = await dispatch(dispatcher(data));
       navigate(`/${entity}/${res.payload._id}`);
-    } catch ({ e }) {
-      alert(e || 'Something went wrong :(');
+    } catch (e) {
+      const errorTitle = e.payload?.message || 'Something went wrong :(';
+      const errorText = e.payload?.e || '';
+      setError([errorTitle, errorText]);
     }
   };
 
@@ -48,6 +51,11 @@ export const EditPage = ({
             {...inputData}
           />
         ))}
+        <div className="error-msg">
+          {error.map((text, i) => (
+            <p key={i}>{text}</p>
+          ))}
+        </div>
         <div className="button-container">
           <Button title={actionName} onClick={submitHandler} />
           <Button onClick={goBack} title="Cancel" secondary />

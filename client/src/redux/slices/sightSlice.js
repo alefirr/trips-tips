@@ -7,12 +7,12 @@ const initialState = {
 };
 
 export const addSight = createAsyncThunk('post/addSight', async (params) => {
-  try {
-    const { data } = await axios.post('/sights', params);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+  // try {
+  const { data } = await axios.post('/sights', params);
+  return data;
+  // } catch (error) {
+  //   console.log(error);
+  // }
 });
 
 export const getAllSights = createAsyncThunk('sight/getAllSights', async () => {
