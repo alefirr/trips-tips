@@ -35,6 +35,7 @@ const inputs = [
 export const AddSightPage = () => {
   return (
     <EditPage
+      title="Add sight"
       inputs={inputs}
       dispatcher={addSight}
       preloaders={[getAllTypes, getAllCities]}

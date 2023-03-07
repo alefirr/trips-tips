@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from '../../ui';
 import { DataInput } from './DataInput';
+import './EditPage.css';
 
 export const EditPage = ({
   initialData = {},
   inputs,
+  title,
   dispatcher,
   preloaders = [],
 }) => {
@@ -13,7 +15,7 @@ export const EditPage = ({
   const [data, setData] = useState(initialData);
 
   useEffect(() => {
-    preloaders?.forEach((preloader) => dispatch(preloader()));
+    preloaders.forEach((preloader) => dispatch(preloader()));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, ...preloaders]);
 
@@ -26,11 +28,16 @@ export const EditPage = ({
   };
 
   return (
-    <div className="add-country-container">
+    <div className="container">
       <div className="form">
-        <h1 className="header">New Country</h1>
+        <h1 className="header">{title}</h1>
         {inputs.map((inputData) => (
-          <DataInput {...inputData} data={data} setData={setData} />
+          <DataInput
+            key={inputData.id}
+            data={data}
+            setData={setData}
+            {...inputData}
+          />
         ))}
         <div className="button-container">
           <Button title="Add" onClick={submitHandler} />

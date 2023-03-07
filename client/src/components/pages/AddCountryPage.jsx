@@ -29,6 +29,7 @@ const inputs = [
 export const AddCountryPage = () => {
   return (
     <EditPage
+      title="Add country"
       inputs={inputs}
       dispatcher={addCountry}
       preloaders={[getAllContinents]}

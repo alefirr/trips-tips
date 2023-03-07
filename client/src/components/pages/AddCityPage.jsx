@@ -39,6 +39,7 @@ const inputs = [
 export const AddCityPage = () => {
   return (
     <EditPage
+      title="Add city"
       inputs={inputs}
       dispatcher={addCity}
       preloaders={[getAllCountries]}

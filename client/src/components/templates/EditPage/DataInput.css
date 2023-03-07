@@ -1,0 +1,54 @@
+.input {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 22px;
+}
+
+label {
+  font-size: 20px;
+  margin-right: 15px;
+}
+
+input,
+textarea,
+select {
+  padding: 5px 10px;
+  font-size: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 200px;
+  outline-color: #019288;
+}
+
+input[type='file'] {
+  border: none;
+  padding: 0;
+}
+
+input[type='file']::-webkit-file-upload-button {
+  padding: 5px 12px;
+  margin: 0 10px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  background-color: white;
+  color: #019288;
+  border: 2px solid #019288;
+  outline: none;
+}
+
+input[type='file']::-webkit-file-upload-button:active {
+  background-color: #019288;
+  color: white;
+}
+
+input[type='checkbox'] {
+  transform: scale(2);
+  accent-color: #019288;
+  margin-left: 11px;
+  min-width: unset;
+}

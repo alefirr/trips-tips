@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import './DataInput.css';
 
 const FileInput = ({ setter }) => (
   <input type="file" onChange={(e) => setter(e.target.files?.[0])} />
@@ -46,7 +47,7 @@ const SelectInput = ({ optionsSelector, value, setter }) => {
   return (
     <select value={value} onChange={(e) => setter(e.target.value)}>
       {options.map(({ id, label }) => (
-        <option value={id} key={id}>
+        <option key={id} value={id}>
           {label}
         </option>
       ))}
@@ -79,9 +80,9 @@ export const DataInput = ({
   const InputComp = MAP_ID_TO_INPUT_COMP[type];
 
   return (
-    <label>
-      {label}
+    <div className="input">
+      <label>{label}</label>
       <InputComp {...props} />
-    </label>
+    </div>
   );
 };
