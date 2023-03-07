@@ -46,9 +46,9 @@ const SelectInput = ({ optionsSelector, value, setter }) => {
 
   return (
     <select value={value} onChange={(e) => setter(e.target.value)}>
-      {options.map(({ id, label }) => (
-        <option key={id} value={id}>
-          {label}
+      {options.map(({ _id, name }) => (
+        <option key={_id} value={_id}>
+          {name}
         </option>
       ))}
     </select>
@@ -72,7 +72,7 @@ export const DataInput = ({
   setData,
   ...inputData
 }) => {
-  const value = data[dataId];
+  const value = data[dataId] || '';
   const setter = (value) => setData((prev) => ({ ...prev, [dataId]: value }));
 
   const props = { ...inputData, value, setter };
