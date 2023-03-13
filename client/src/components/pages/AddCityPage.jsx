@@ -1,5 +1,6 @@
 import React from 'react';
-import { addCity, getAllCountries } from '../../redux';
+import { useParams } from 'react-router-dom';
+import { addCity, getAllCountries, updateCity } from '../../redux';
 import { EditPage } from '../templates';
 
 const inputs = [
@@ -38,12 +39,18 @@ const inputs = [
 ];
 
 export const AddCityPage = () => {
+  const { cityId } = useParams();
+
   return (
     <EditPage
       entity="city"
       inputs={inputs}
-      dispatcher={addCity}
+      dispatcher={cityId ? updateCity : addCity}
       preloaders={[getAllCountries]}
+      selector={
+        cityId &&
+        ((state) => state.city.list.find((city) => city._id === cityId))
+      }
     />
   );
 };

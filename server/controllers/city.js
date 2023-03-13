@@ -5,7 +5,7 @@ export const addCity = async (req, res) => {
     const { name, text, country, isCapital, population } = req.body;
     const isAdded = await City.findOne({ name });
     if (isAdded) {
-      return res.json({ message: 'This city already exists' });
+      return res.status(400).json({ message: 'This city already exists' });
     }
     const newCity = new City({
       name,

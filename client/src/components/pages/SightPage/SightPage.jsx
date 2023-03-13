@@ -60,7 +60,7 @@ export const SightPage = () => {
       <h1 className="sight-page-header">Enjoy {sight?.name}</h1>
       <h4 className="sight-page-type"> Type: {type?.name}</h4>
       <h4 className="sight-page-city"> City: {city?.name}</h4>
-      <h4 className="sight-page-country"> City: {country?.name}</h4>
+      <h4 className="sight-page-country"> Country: {country?.name}</h4>
       <p className="sight-page-text">{sight?.text}</p>
     </div>
   );

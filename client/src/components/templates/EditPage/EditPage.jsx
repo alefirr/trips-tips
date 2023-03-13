@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../ui';
 import { DataInput } from './DataInput';
 import './EditPage.css';
 
 export const EditPage = ({
-  initialData,
+  selector,
   inputs,
   entity,
   dispatcher,
@@ -15,6 +15,8 @@ export const EditPage = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState([]);
+
+  const initialData = useSelector(selector || (() => null));
 
   const [data, setData] = useState(initialData || {});
 

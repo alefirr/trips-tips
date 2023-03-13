@@ -8,7 +8,7 @@ export const addSight = async (req, res) => {
     const isAdded = await Sight.findOne({ name });
 
     if (isAdded) {
-      return res.json({ message: 'This city already exists' });
+      return res.status(400).json({ message: 'This sight already exists' });
     }
 
     // if (req.files) {

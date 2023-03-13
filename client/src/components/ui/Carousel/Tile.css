@@ -3,6 +3,22 @@ a {
   outline: none;
   color: black;
 }
+.tile-container {
+  display: flex;
+  flex-direction: column;
+
+  width: 270px;
+  height: 330px;
+  border-radius: 15px;
+  margin: 0 10px;
+  box-sizing: border-box;
+  padding: 20px 0 0 0;
+  transition: 5ms;
+}
+.tile-container:hover {
+  background-color: rgb(233, 232, 232);
+  transform: scale(1.02);
+}
 
 .tile {
   width: 250px;
@@ -10,8 +26,10 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(225, 108, 36);
+  background-color: rgba(164, 221, 95, 0.656);
   margin: 0 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
 }
 
 .h3-tile {
@@ -20,4 +38,18 @@ a {
   margin: 0;
   padding: 0;
   align-self: center;
+}
+
+.tile-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+.tile-button-container button {
+  height: 40px;
+  width: 50px;
+  font-size: 10px;
+  padding: 0;
+  box-sizing: border-box;
 }
