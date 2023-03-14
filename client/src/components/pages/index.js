@@ -1,6 +1,6 @@
-export { AddCityPage } from './AddCityPage';
-export { AddCountryPage } from './AddCountryPage';
-export { AddSightPage } from './AddSightPage';
+export { EditCityPage } from './EditCityPage';
+export { EditCountryPage } from './EditCountryPage';
+export { EditSightPage } from './EditSightPage';
 export { MainPage } from './MainPage';
 export { LoginPage } from './LoginPage';
 export { RegisterPage } from './RegisterPage';

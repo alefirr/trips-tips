@@ -38,7 +38,7 @@ const inputs = [
   },
 ];
 
-export const AddCityPage = () => {
+export const EditCityPage = () => {
   const { cityId } = useParams();
 
   return (

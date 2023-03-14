@@ -4,9 +4,9 @@ import {
   CountryPage,
   CityPage,
   SightPage,
-  AddCityPage,
-  AddCountryPage,
-  AddSightPage,
+  EditCityPage,
+  EditCountryPage,
+  EditSightPage,
   LoginPage,
   RegisterPage,
 } from './components/pages';
@@ -18,23 +18,23 @@ function App() {
     <Layout>
       <Routes>
         <Route path="" element={<MainPage />} />
-        <Route path="new-country" element={<AddCountryPage />} />
-        <Route path="new-city" element={<AddCityPage />} />
+        <Route path="new-country" element={<EditCountryPage />} />
+        <Route path="new-city" element={<EditCityPage />} />
         <Route
           path="country/:countryId/edit-city/:cityId"
-          element={<AddCityPage />}
+          element={<EditCityPage />}
         />
-        <Route path="new-sight" element={<AddSightPage />} />
+        <Route path="new-sight" element={<EditSightPage />} />
         <Route path="country/:countryId" element={<CountryPage />} />
         <Route path="city/:cityId" element={<CityPage />} />
         <Route path="sight/:sightId" element={<SightPage />} />
-        <Route path="country/:countryId/new-city" element={<AddCityPage />} />
+        <Route path="country/:countryId/new-city" element={<EditCityPage />} />
         <Route path="country/:countryId/city/:cityId" element={<CityPage />} />
-        <Route path="city/:cityId/new-sight" element={<AddSightPage />} />
+        <Route path="city/:cityId/new-sight" element={<EditSightPage />} />
         <Route path="city/:cityId/sight/:sightId" element={<SightPage />} />
         <Route
           path="country/:countryId/city/:cityId/new-sight"
-          element={<AddSightPage />}
+          element={<EditSightPage />}
         />
         <Route
           path="country/:countryId/city/:cityId/sight/:sightId"

@@ -27,7 +27,7 @@ const inputs = [
   },
 ];
 
-export const AddCountryPage = () => {
+export const EditCountryPage = () => {
   return (
     <EditPage
       entity="country"

@@ -34,7 +34,7 @@ const inputs = [
   },
 ];
 
-export const AddSightPage = () => {
+export const EditSightPage = () => {
   return (
     <EditPage
       entity="sight"
