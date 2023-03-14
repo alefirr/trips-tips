@@ -1,7 +1,16 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCities, getAllSights, getAllTypes } from '../../redux';
-import { BarChart, Bar, XAxis, YAxis, Cell, Pie, PieChart } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Pie,
+  PieChart,
+  Tooltip,
+  CartesianGrid,
+} from 'recharts';
 
 export const ChartPage = () => {
   const dispatch = useDispatch();
@@ -44,24 +53,69 @@ export const ChartPage = () => {
     () => renderSightsData(cities, 'city'),
     [cities, renderSightsData]
   );
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+  }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? 'start' : 'end'}
+        dominantBaseline="central"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
 
   return (
     <div>
-      <BarChart width={1200} height={300} data={sightsPerType}>
+      <BarChart
+        width={1500}
+        height={300}
+        data={sightsPerType}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
         <XAxis dataKey="name" />
         <YAxis />
-        <Bar dataKey="value" barSize={100} fill="#019288" />
+        <Tooltip />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Bar
+          dataKey="value"
+          barSize={100}
+          fill="#019288"
+          label={(entry) => entry.value}
+        />
       </BarChart>
-      <PieChart width={600} height={600}>
+      <PieChart width={700} height={600}>
         <Pie
           data={sightsPerCity}
           cx="50%"
           cy="50%"
           labelLine={false}
-          label={(entry) => entry.name}
+          // (entry) => entry.name +
+          label={renderCustomizedLabel}
           fill="#019288"
           dataKey="value"
         />
+        <Tooltip />
       </PieChart>
     </div>
   );
