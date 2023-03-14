@@ -38,7 +38,7 @@ export const updateSight = createAsyncThunk(
   async (updatedSight) => {
     try {
       const { data } = await axios.put(
-        `/sights/${updatedSight.id}`,
+        `/sights/${updatedSight._id}`,
         updatedSight
       );
       return data;

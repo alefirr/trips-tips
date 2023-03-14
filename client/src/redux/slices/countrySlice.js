@@ -47,7 +47,7 @@ export const updateCountry = createAsyncThunk(
   async (updatedCountry) => {
     try {
       const { data } = await axios.put(
-        `/countries/${updatedCountry.id}`,
+        `/countries/${updatedCountry._id}`,
         updatedCountry
       );
       return data;
