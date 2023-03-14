@@ -35,7 +35,7 @@ export const updateCountry = async (req, res) => {
       await country.save();
       return res.json(country);
     }
-    res.json({ message: 'No such country' });
+    res.status(400).json({ message: 'No such country' });
   } catch (e) {
     res.status(400).json({
       message: 'Error occured during editing country',
@@ -48,7 +48,7 @@ export const getAllCountries = async (req, res) => {
   try {
     const countries = await Country.find();
     if (!countries) {
-      return res.json({ message: 'No countries' });
+      return res.status(400).json({ message: 'No countries' });
     }
     res.json(countries);
   } catch (e) {
@@ -63,7 +63,7 @@ export const getCountryById = async (req, res) => {
   try {
     const country = await Country.findById(req.params.id);
     if (!country) {
-      return res.json({ message: 'No such country' });
+      return res.status(400).json({ message: 'No such country' });
     }
     res.json(country);
   } catch (e) {
@@ -78,10 +78,10 @@ export const removeCountry = async (req, res) => {
   try {
     const country = await Country.findByIdAndDelete(req.params.id);
     if (!country) {
-      return res.json({ message: 'No such country' });
+      return res.status(400).json({ message: 'No such country' });
     }
 
-    res.json({ message: 'Countr was deleted' });
+    res.json({ message: 'Country was deleted' });
   } catch (e) {
     res.status(400).json({
       message: 'Error occured during removing country',

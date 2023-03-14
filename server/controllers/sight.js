@@ -45,7 +45,7 @@ export const updateSight = async (req, res) => {
       await sight.save();
       return res.json(sight);
     }
-    res.json({ message: 'No such sight' });
+    res.status(400).json({ message: 'No such sight' });
   } catch (e) {
     res.status(400).json({
       message: 'Error occured during updating sight',
@@ -58,7 +58,7 @@ export const getAllSights = async (req, res) => {
   try {
     const sights = await Sight.find();
     if (!sights) {
-      return res.json({ message: 'No sights' });
+      return res.status(400).json({ message: 'No sights' });
     }
     res.json(sights);
   } catch (e) {
@@ -73,7 +73,7 @@ export const getSightById = async (req, res) => {
   try {
     const sight = await Sight.findById(req.params.id);
     if (!sight) {
-      return res.json({ message: 'No such sight' });
+      return res.status(400).json({ message: 'No such sight' });
     }
     res.json(sight);
   } catch (e) {
@@ -88,7 +88,7 @@ export const removeSight = async (req, res) => {
   try {
     const sight = await Sight.findByIdAndDelete(req.params.id);
     if (!sight) {
-      return res.json({ message: 'No such sight' });
+      return res.status(400).json({ message: 'No such sight' });
     }
 
     res.json({ message: 'Sight was deleted' });

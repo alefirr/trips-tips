@@ -4,7 +4,7 @@ export const getAllContinents = async (req, res) => {
   try {
     const continents = await Continent.find();
     if (!continents) {
-      return res.json({ message: 'Continents not found' });
+      return res.status(400).json({ message: 'Continents not found' });
     }
     res.json(continents);
   } catch (e) {

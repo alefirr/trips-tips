@@ -35,7 +35,7 @@ export const updateCity = async (req, res) => {
       await city.save();
       return res.json(city);
     }
-    res.json({ message: 'No such city' });
+    res.status(400).json({ message: 'No such city' });
   } catch (e) {
     res.status(400).json({
       message: 'Error occured during updating city',
@@ -48,7 +48,7 @@ export const getAllCities = async (req, res) => {
   try {
     const cities = await City.find();
     if (!cities) {
-      return res.json({ message: 'No cities' });
+      return res.status(400).json({ message: 'No cities' });
     }
     res.json(cities);
   } catch (e) {
@@ -63,7 +63,7 @@ export const getCityById = async (req, res) => {
   try {
     const city = await City.findById(req.params.id);
     if (!city) {
-      return res.json({ message: 'No such city' });
+      return res.status(400).json({ message: 'No such city' });
     }
     res.json(city);
   } catch (e) {
@@ -78,7 +78,7 @@ export const removeCity = async (req, res) => {
   try {
     const city = await City.findByIdAndDelete(req.params.id);
     if (!city) {
-      return res.json({ message: 'No such city' });
+      return res.status(400).json({ message: 'No such city' });
     }
 
     res.json({ message: 'City was deleted' });

@@ -7,9 +7,9 @@ export const register = async (req, res) => {
     const isUsed = await User.findOne({ username });
 
     if (isUsed) {
-      return res.json({
+      return res.status(400).json({
         message:
-          'User with that name already exists.Please choose another username and try again',
+          'User with that name already exists. Please choose another username and try again',
       });
     }
 
@@ -22,7 +22,7 @@ export const register = async (req, res) => {
     });
 
     await newUser.save();
-    res.json({ newUser, message: 'The registration suceeded' });
+    res.json({ newUser, message: 'The registration succeded' });
   } catch (e) {
     res.status(400).json({
       message: 'Error occured during registration',
@@ -37,13 +37,13 @@ export const login = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.json({ message: 'There is no such username' });
+      return res.status(400).json({ message: 'There is no such username' });
     }
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (isPasswordCorrect) {
       return res.json({ message: 'Login completed' });
     } else {
-      return res.json({ message: 'Wrong password' });
+      return res.status(400).json({ message: 'Wrong password' });
     }
   } catch (e) {
     res.status(400).json({

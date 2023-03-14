@@ -4,7 +4,7 @@ export const getAllTypes = async (req, res) => {
   try {
     const types = await Type.find();
     if (!types) {
-      return res.json({ message: 'No types' });
+      return res.status(400).json({ message: 'No types' });
     }
     res.json(types);
   } catch (e) {
