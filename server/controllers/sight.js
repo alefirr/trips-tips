@@ -25,7 +25,7 @@ export const addSight = async (req, res) => {
     });
 
     await newSight.save();
-    console.log(newSight);
+
     res.json(newSight);
   } catch (e) {
     res.status(400).json({
