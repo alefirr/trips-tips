@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { addSight, getAllTypes, getAllCities } from '../../redux';
 import { EditPage } from '../templates';
 
@@ -35,12 +36,17 @@ const inputs = [
 ];
 
 export const EditSightPage = () => {
+  const { sightId } = useParams();
+
   return (
     <EditPage
       entity="sight"
       inputs={inputs}
       dispatcher={addSight}
       preloaders={[getAllTypes, getAllCities]}
+      selector={
+        sightId && ((state) => state.sight.list.find((s) => s._id === sightId))
+      }
     />
   );
 };

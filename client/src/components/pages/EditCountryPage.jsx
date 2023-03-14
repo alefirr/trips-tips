@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { getAllContinents, addCountry } from '../../redux';
 import { EditPage } from '../templates';
 
@@ -28,12 +29,18 @@ const inputs = [
 ];
 
 export const EditCountryPage = () => {
+  const { countryId } = useParams();
+
   return (
     <EditPage
       entity="country"
       inputs={inputs}
       dispatcher={addCountry}
       preloaders={[getAllContinents]}
+      selector={
+        countryId &&
+        ((state) => state.country.list.find((c) => c._id === countryId))
+      }
     />
   );
 };

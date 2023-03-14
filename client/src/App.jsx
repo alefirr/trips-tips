@@ -19,6 +19,7 @@ function App() {
       <Routes>
         <Route path="" element={<MainPage />} />
         <Route path="new-country" element={<EditCountryPage />} />
+        <Route path="edit-country/:countryId" element={<EditCountryPage />} />
         <Route path="new-city" element={<EditCityPage />} />
         <Route
           path="country/:countryId/edit-city/:cityId"
@@ -34,6 +35,10 @@ function App() {
         <Route path="city/:cityId/sight/:sightId" element={<SightPage />} />
         <Route
           path="country/:countryId/city/:cityId/new-sight"
+          element={<EditSightPage />}
+        />
+        <Route
+          path="country/:countryId/city/:cityId/edit-sight/:sightId"
           element={<EditSightPage />}
         />
         <Route
