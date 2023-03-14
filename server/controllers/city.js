@@ -27,11 +27,15 @@ export const addCity = async (req, res) => {
 
 export const updateCity = async (req, res) => {
   try {
-    const { name, text, _id: id } = req.body;
+    const { name, text, _id: id, country, isCapital, population } = req.body;
     const city = await City.findById(id);
     if (city) {
       city.name = name;
       city.text = text;
+      city.country = country;
+      city.isCapital = isCapital;
+      city.population = population;
+
       await city.save();
       return res.json(city);
     }

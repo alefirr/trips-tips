@@ -27,11 +27,12 @@ export const addCountry = async (req, res) => {
 
 export const updateCountry = async (req, res) => {
   try {
-    const { name, text, _id: id } = req.body;
+    const { name, text, _id: id, continent } = req.body;
     const country = await Country.findById(id);
     if (country) {
       country.name = name;
       country.text = text;
+      country.continent = continent;
       await country.save();
       return res.json(country);
     }

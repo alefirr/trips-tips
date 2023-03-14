@@ -90,7 +90,7 @@ export const countrySlice = createSlice({
     },
     [removeCountry.fulfilled]: (state, action) => {
       state.loading = false;
-      state.countries = state.countries.filter(
+      state.list = state.list.filter(
         (country) => country._id !== action.payload._id
       );
     },
@@ -103,10 +103,10 @@ export const countrySlice = createSlice({
     },
     [updateCountry.fulfilled]: (state, action) => {
       state.loading = false;
-      const index = state.countries.findIndex(
+      const index = state.list.findIndex(
         (country) => country._id === action.payload._id
       );
-      state.countries[index] = action.payload;
+      state.list[index] = action.payload;
     },
     [updateCountry.rejected]: (state) => {
       state.loading = false;
