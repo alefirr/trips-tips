@@ -27,7 +27,7 @@ export const addCity = async (req, res) => {
 
 export const updateCity = async (req, res) => {
   try {
-    const { name, text, id } = req.body;
+    const { name, text, _id: id } = req.body;
     const city = await City.findById(id);
     if (city) {
       city.name = name;

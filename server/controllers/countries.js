@@ -27,7 +27,7 @@ export const addCountry = async (req, res) => {
 
 export const updateCountry = async (req, res) => {
   try {
-    const { name, text, id } = req.body;
+    const { name, text, _id: id } = req.body;
     const country = await Country.findById(id);
     if (country) {
       country.name = name;

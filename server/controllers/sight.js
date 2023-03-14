@@ -37,7 +37,7 @@ export const addSight = async (req, res) => {
 
 export const updateSight = async (req, res) => {
   try {
-    const { name, text, id } = req.body;
+    const { name, text, _id: id } = req.body;
     const sight = await Sight.findById(id);
     if (sight) {
       sight.name = name;
