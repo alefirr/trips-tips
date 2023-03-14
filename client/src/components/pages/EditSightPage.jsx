@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { addSight, getAllTypes, getAllCities } from '../../redux';
+import { addSight, getAllTypes, getAllCities, updateSight } from '../../redux';
 import { EditPage } from '../templates';
 
 const inputs = [
@@ -42,7 +42,7 @@ export const EditSightPage = () => {
     <EditPage
       entity="sight"
       inputs={inputs}
-      dispatcher={addSight}
+      dispatcher={sightId ? updateSight : addSight}
       preloaders={[getAllTypes, getAllCities]}
       selector={
         sightId && ((state) => state.sight.list.find((s) => s._id === sightId))
