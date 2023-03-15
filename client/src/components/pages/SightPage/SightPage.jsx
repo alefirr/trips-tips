@@ -1,16 +1,19 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   getAllCities,
   getAllCountries,
   getAllSights,
   getAllTypes,
+  removeSight,
 } from '../../../redux';
+import { Button } from '../../ui/Button';
 import './SightPage.css';
 
 export const SightPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { sightId } = useParams();
 
@@ -55,13 +58,33 @@ export const SightPage = () => {
     dispatch(getAllSights());
   }, [dispatch]);
 
+  const handleDeleteButtonClick = async (e) => {
+    await dispatch(removeSight(sightId));
+    navigate('/');
+  };
+
   return (
     <div className="sight-page-container">
-      <h1 className="sight-page-header">Enjoy {sight?.name}</h1>
-      <h4 className="sight-page-type"> Type: {type?.name}</h4>
-      <h4 className="sight-page-city"> City: {city?.name}</h4>
-      <h4 className="sight-page-country"> Country: {country?.name}</h4>
-      <p className="sight-page-text">{sight?.text}</p>
+      <div className="sight-page-text-container">
+        <h1 className="sight-page-header">{sight?.name}</h1>
+        <h4 className="sight-page-info"> Type: {type?.name}</h4>
+        <h4 className="sight-page-info"> City: {city?.name}</h4>
+        <h4 className="sight-page-info"> Country: {country?.name}</h4>
+        <p className="sight-page-text">{sight?.text}</p>
+        <Link to={`edit-sight/${sightId}`}>
+          <Button
+            title={<span className="material-symbols-outlined">edit</span>}
+            secondary
+          />
+        </Link>
+
+        <Button
+          title={<span className="material-symbols-outlined">delete</span>}
+          onClick={handleDeleteButtonClick}
+          secondary
+        />
+      </div>
+      <div className="sight-page-image-container"></div>
     </div>
   );
 };

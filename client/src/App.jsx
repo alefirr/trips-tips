@@ -42,6 +42,14 @@ function App() {
           element={<EditSightPage />}
         />
         <Route
+          path="country/:countryId/city/:cityId/sight/:sightId/edit-sight/:sightId"
+          element={<EditSightPage />}
+        />
+        <Route
+          path="sight/:sightId/edit-sight/:sightId"
+          element={<EditSightPage />}
+        />
+        <Route
           path="country/:countryId/city/:cityId/sight/:sightId"
           element={<SightPage />}
         />

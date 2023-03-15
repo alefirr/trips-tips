@@ -1,0 +1,41 @@
+.sight-page-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 80%;
+  height: 100%;
+  background-color: #eceaea;
+  border-radius: 50px;
+  padding: 50px;
+}
+
+.sight-page-text-container {
+  width: 50%;
+  height: 100%;
+}
+.sight-page-image-container {
+  width: 45%;
+  height: 100%;
+  background-image: repeating-radial-gradient(
+    circle at 50% 50%,
+    #fff,
+    #fff 10px,
+    #000 10px,
+    #000 20px
+  );
+}
+
+.sight-page-header {
+  font-size: 50px;
+  padding: 0 0 40px 0;
+}
+
+.sight-page-info {
+  font-size: 20px;
+}
+
+.sight-page-text {
+  font-size: 20px;
+  margin-top: 50px;
+}
