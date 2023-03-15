@@ -82,8 +82,9 @@ export const ChartPage = () => {
 
   return (
     <div>
+      <h1>The number of sights per each type</h1>
       <BarChart
-        width={1500}
+        width={1200}
         height={300}
         data={sightsPerType}
         margin={{
@@ -99,11 +100,12 @@ export const ChartPage = () => {
         <CartesianGrid strokeDasharray="3 3" />
         <Bar
           dataKey="value"
-          barSize={100}
+          barSize={50}
           fill="#019288"
           label={(entry) => entry.value}
         />
       </BarChart>
+      <h1>The number of sights per each city</h1>
       <PieChart width={700} height={600}>
         <Pie
           data={sightsPerCity}
