@@ -1,12 +1,14 @@
-import Continent from '../models/continent.js';
-
-export const getAllContinents = async (req, res) => {
+export const getAllContinents = async (_req, res) => {
   try {
-    const continents = await Continent.find();
-    if (!continents) {
-      return res.status(400).json({ message: 'Continents not found' });
+    const continents = (
+      await query(`SELECT * FROM CONTINENTS ORDER BY "name" ASC`)
+    )?.rows;
+
+    if (!continents?.length) {
+      return res.status(400).json({ message: 'No continents' });
     }
-    res.json(continents);
+
+    res.json(countries);
   } catch (e) {
     res.status(400).json({
       message: 'Error during getting all continents',
