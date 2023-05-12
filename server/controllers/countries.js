@@ -1,7 +1,7 @@
-import Country from '../models/Country.js';
+import query from '../database.js';
 
 const injectCountryById = async (id) => {
-  const res = await pool.query(`SELECT * FROM COUNTRIES WHERE id = ${id}`);
+  const res = await query(`SELECT * FROM COUNTRIES WHERE id = ${id}`);
   return res?.rows?.[0];
 };
 
@@ -10,14 +10,14 @@ export const addCountry = async (req, res) => {
     const { name, text, continent } = req.body;
 
     const isAdded = (
-      await pool.query(`SELECT * FROM COUNTRIES WHERE name = '${name}'`)
+      await query(`SELECT * FROM COUNTRIES WHERE name = '${name}'`)
     )?.rows?.[0];
 
     if (isAdded) {
       return res.status(400).json({ message: 'This country already exists' });
     }
 
-    await pool.query(
+    await query(
       `INSERT INTO COUNTRIES (name, text, continent) VALUES ('${name}', '${text}', ${continent})`
     );
 
@@ -35,7 +35,7 @@ export const updateCountry = async (req, res) => {
     const { name, text, id, continent } = req.body;
 
     const nameExists = (
-      await pool.query(
+      await query(
         `SELECT * FROM COUNTRIES WHERE name = '${name} AND id != ${id}'`
       )
     )?.rows?.[0];
@@ -53,7 +53,7 @@ export const updateCountry = async (req, res) => {
       country.text = text;
       country.continent = continent;
 
-      await pool.query(
+      await query(
         `UPDATE COUNTRIES SET name = '${name}', text = '${text}', continent = ${continent} WHERE id = ${id}`
       );
 
@@ -69,17 +69,17 @@ export const updateCountry = async (req, res) => {
   }
 };
 
-export const getAllCountries = async (req, res) => {
+export const getAllCountries = async (_req, res) => {
   try {
-    const countries = await pool.query(
-      `SELECT * FROM COUNTRIES ORDER BY "name" ASC`
-    );
+    const countries = (
+      await query(`SELECT * FROM COUNTRIES ORDER BY "name" ASC`)
+    )?.rows;
 
-    if (!countries) {
+    if (!countries?.length) {
       return res.status(400).json({ message: 'No countries' });
     }
 
-    res.json(countries.rows);
+    res.json(countries);
   } catch (e) {
     res.status(400).json({
       message: 'Error occured during getting countries',
@@ -113,7 +113,7 @@ export const removeCountry = async (req, res) => {
       return res.status(400).json({ message: 'No such country' });
     }
 
-    await pool.query(`DELETE FROM COUNTRIES WHERE id = ${req.params.id}`);
+    await query(`DELETE FROM COUNTRIES WHERE id = ${req.params.id}`);
 
     res.json({ message: 'Country was deleted' });
   } catch (e) {
