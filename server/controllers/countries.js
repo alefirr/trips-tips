@@ -9,8 +9,8 @@ export const addCountry = async (req, res) => {
   try {
     const { name, text, continent } = req.body;
 
-    const isAdded = await pool.query(
-      `SELECT * FROM COUNTRIES WHERE name = '${name}'`
+    const isAdded = (
+      await pool.query(`SELECT * FROM COUNTRIES WHERE name = '${name}'`)
     )?.rows?.[0];
 
     if (isAdded) {
