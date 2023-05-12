@@ -20,8 +20,6 @@ export const addCity = async (req, res) => {
       `INSERT INTO CITIES (name, text, country, isCapital, population) VALUES ('${name}', '${text}', ${country}, ${isCapital}, ${population})`
     );
 
-    await newCity.save();
-
     res.json({
       name,
       text,
