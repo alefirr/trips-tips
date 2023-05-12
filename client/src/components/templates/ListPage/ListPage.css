@@ -4,3 +4,32 @@
   text-align: center;
   line-height: 1.5;
 }
+.details-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+  margin-top: 40px;
+  padding: 0;
+  width: 80%;
+  height: 50vh;
+}
+
+.details-container h4 {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+
+.img {
+  width: 45%;
+  height: 100%;
+  background-image: repeating-radial-gradient(
+    circle at 50% 50%,
+    #b33f3f,
+    #fff 10px,
+    #9c0f0f 10px,
+    #000 20px
+  );
+}

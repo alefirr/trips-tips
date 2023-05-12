@@ -4,7 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Title, Button, Carousel } from '../../ui';
 import './ListPage.css';
 
-export const ListPage = ({ title, displayEntity, fetcher, selector }) => {
+export const ListPage = ({
+  title,
+  details,
+  displayEntity,
+  fetcher,
+  selector,
+}) => {
   const dispatch = useDispatch();
   const data = useSelector(selector);
 
@@ -18,6 +24,19 @@ export const ListPage = ({ title, displayEntity, fetcher, selector }) => {
   return (
     <>
       <Title>{title}</Title>
+      {details ? (
+        <>
+          <div className="details-container">
+            <div>
+              {details?.map((detail) => (
+                <h4 key={detail.value}>{`${detail.key} : ${detail.value}`}</h4>
+              ))}
+            </div>
+            <div className="img"></div>
+          </div>
+          <h2>{`Choose a ${displayEntity} to visit:`}</h2>
+        </>
+      ) : null}
       {data?.length ? (
         <Carousel tiles={data} entityRoute={displayEntity} />
       ) : (

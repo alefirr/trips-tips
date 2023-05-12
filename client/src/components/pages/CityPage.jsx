@@ -20,16 +20,47 @@ export const CityPage = () => {
     }
   }, [cities.length, countries.length, dispatch]);
 
-  const cityName = useMemo(
-    () => cities.find((city) => city._id === cityId)?.name,
-    [cities, cityId]
+  const city = useMemo(
+    () => cities.find((city) => city._id === cityId),
+    [cityId, cities]
   );
+  const cityName = city?.name;
+  const getDetails = () => {
+    const details = [];
+    for (let key in city) {
+      switch (key) {
+        case 'text':
+          details.push({ key: 'Info', value: city[key] });
+          break;
+        case 'country':
+          const country = countries.find(
+            (country) => country._id === city[key]
+          );
+          details.push({ key: 'Country', value: country?.name });
+          break;
+        case 'isCapital':
+          details.push({
+            key: 'Is it a capital',
+            value: city[key] ? 'Yes' : 'No',
+          });
+          break;
+        case 'population':
+          details.push({ key: 'Population', value: city[key] });
+          break;
+        default:
+          break;
+      }
+    }
+    console.log(details);
+    return details;
+  };
 
   const pageTitle = `Explore ${cityName}`;
 
   return (
     <ListPage
       title={pageTitle}
+      details={getDetails()}
       displayEntity="sight"
       fetcher={getAllSights}
       selector={(state) =>

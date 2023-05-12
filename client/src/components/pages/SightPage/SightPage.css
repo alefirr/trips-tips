@@ -4,15 +4,20 @@
   align-items: flex-start;
   justify-content: space-between;
   width: 80%;
-  height: 100%;
+  height: 500px;
   background-color: #eceaea;
   border-radius: 50px;
   padding: 50px;
 }
 
 .sight-page-text-container {
+  display: grid;
+  justify-content: start;
   width: 50%;
   height: 100%;
+  align-content: stretch;
+  justify-items: start;
+  align-items: baseline;
 }
 .sight-page-image-container {
   width: 45%;
@@ -28,14 +33,17 @@
 
 .sight-page-header {
   font-size: 50px;
-  padding: 0 0 40px 0;
 }
 
-.sight-page-info {
-  font-size: 20px;
-}
-
+.sight-page-info,
 .sight-page-text {
   font-size: 20px;
-  margin-top: 50px;
+}
+.sight-page-buttons-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  justify-self: flex-end;
 }

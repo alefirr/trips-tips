@@ -71,18 +71,20 @@ export const SightPage = () => {
         <h4 className="sight-page-info"> City: {city?.name}</h4>
         <h4 className="sight-page-info"> Country: {country?.name}</h4>
         <p className="sight-page-text">{sight?.text}</p>
-        <Link to={`edit-sight/${sightId}`}>
+        <div className="sight-page-buttons-container">
+          <Link to={`edit-sight/${sightId}`}>
+            <Button
+              title={<span className="material-symbols-outlined">edit</span>}
+              secondary
+            />
+          </Link>
+
           <Button
-            title={<span className="material-symbols-outlined">edit</span>}
+            title={<span className="material-symbols-outlined">delete</span>}
+            onClick={handleDeleteButtonClick}
             secondary
           />
-        </Link>
-
-        <Button
-          title={<span className="material-symbols-outlined">delete</span>}
-          onClick={handleDeleteButtonClick}
-          secondary
-        />
+        </div>
       </div>
       <div className="sight-page-image-container"></div>
     </div>
