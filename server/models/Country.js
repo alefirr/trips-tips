@@ -7,4 +7,5 @@ const CountrySchema = Schema({
   img: { type: String, default: '' },
   continent: { type: Schema.Types.ObjectId, ref: 'Continent' },
 });
+
 export default mongoose.model('Country', CountrySchema);

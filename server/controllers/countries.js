@@ -1,22 +1,23 @@
 import Country from '../models/Country.js';
 
+const getCountry = (id) =>
+  pool.query(`SELECT * FROM COUNTRIES WHERE id = ${id}`)?.rows?.[0];
+
 export const addCountry = async (req, res) => {
   try {
     const { name, text, continent } = req.body;
+
     const isAdded = await Country.findOne({ name });
 
     if (isAdded) {
       return res.status(400).json({ message: 'This country already exists' });
     }
 
-    const newCountry = new Country({
-      name,
-      text,
-      continent,
-    });
+    await pool.query(
+      `INSERT INTO COUNTRIES (name, text, continent) VALUES ('${name}', '${text}', ${continent})`
+    );
 
-    await newCountry.save();
-    res.json(newCountry);
+    res.json({ name, text, continent });
   } catch (e) {
     res.status(400).json({
       message: 'Error occured during creation new country',
@@ -27,15 +28,22 @@ export const addCountry = async (req, res) => {
 
 export const updateCountry = async (req, res) => {
   try {
-    const { name, text, _id: id, continent } = req.body;
-    const country = await Country.findById(id);
+    const { name, text, id, continent } = req.body;
+
+    const country = await getCountry(id);
+
     if (country) {
       country.name = name;
       country.text = text;
       country.continent = continent;
-      await country.save();
+
+      await pool.query(
+        `UPDATE COUNTRIES SET name = '${name}', text = '${text}', continent = ${continent} WHERE id = ${id}`
+      );
+
       return res.json(country);
     }
+
     res.status(400).json({ message: 'No such country' });
   } catch (e) {
     res.status(400).json({
@@ -47,11 +55,15 @@ export const updateCountry = async (req, res) => {
 
 export const getAllCountries = async (req, res) => {
   try {
-    const countries = await Country.find();
+    const countries = await pool.query(
+      `SELECT * FROM COUNTRIES ORDER BY "name" ASC`
+    );
+
     if (!countries) {
       return res.status(400).json({ message: 'No countries' });
     }
-    res.json(countries);
+
+    res.json(countries.rows);
   } catch (e) {
     res.status(400).json({
       message: 'Error occured during getting countries',
@@ -62,10 +74,12 @@ export const getAllCountries = async (req, res) => {
 
 export const getCountryById = async (req, res) => {
   try {
-    const country = await Country.findById(req.params.id);
+    const country = await getCountry(req.params.id);
+
     if (!country) {
       return res.status(400).json({ message: 'No such country' });
     }
+
     res.json(country);
   } catch (e) {
     res.status(400).json({
@@ -77,10 +91,13 @@ export const getCountryById = async (req, res) => {
 
 export const removeCountry = async (req, res) => {
   try {
-    const country = await Country.findByIdAndDelete(req.params.id);
+    const country = await getCountry(req.params.id);
+
     if (!country) {
       return res.status(400).json({ message: 'No such country' });
     }
+
+    await pool.query(`DELETE FROM COUNTRIES WHERE id = ${req.params.id}`);
 
     res.json({ message: 'Country was deleted' });
   } catch (e) {
