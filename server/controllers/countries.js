@@ -1,13 +1,17 @@
 import Country from '../models/Country.js';
 
-const getCountry = (id) =>
-  pool.query(`SELECT * FROM COUNTRIES WHERE id = ${id}`)?.rows?.[0];
+const injectCountryById = async (id) => {
+  const res = await pool.query(`SELECT * FROM COUNTRIES WHERE id = ${id}`);
+  return res?.rows?.[0];
+};
 
 export const addCountry = async (req, res) => {
   try {
     const { name, text, continent } = req.body;
 
-    const isAdded = await Country.findOne({ name });
+    const isAdded = await pool.query(
+      `SELECT * FROM COUNTRIES WHERE name = '${name}'`
+    )?.rows?.[0];
 
     if (isAdded) {
       return res.status(400).json({ message: 'This country already exists' });
@@ -30,7 +34,19 @@ export const updateCountry = async (req, res) => {
   try {
     const { name, text, id, continent } = req.body;
 
-    const country = await getCountry(id);
+    const nameExists = (
+      await pool.query(
+        `SELECT * FROM COUNTRIES WHERE name = '${name} AND id != ${id}'`
+      )
+    )?.rows?.[0];
+
+    if (nameExists) {
+      return res
+        .status(400)
+        .json({ message: 'Country with such name already exists' });
+    }
+
+    const country = await injectCountryById(id);
 
     if (country) {
       country.name = name;
@@ -74,7 +90,7 @@ export const getAllCountries = async (req, res) => {
 
 export const getCountryById = async (req, res) => {
   try {
-    const country = await getCountry(req.params.id);
+    const country = await injectCountryById(req.params.id);
 
     if (!country) {
       return res.status(400).json({ message: 'No such country' });
@@ -91,7 +107,7 @@ export const getCountryById = async (req, res) => {
 
 export const removeCountry = async (req, res) => {
   try {
-    const country = await getCountry(req.params.id);
+    const country = await injectCountryById(req.params.id);
 
     if (!country) {
       return res.status(400).json({ message: 'No such country' });
