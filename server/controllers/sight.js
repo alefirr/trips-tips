@@ -1,4 +1,4 @@
-import Sight from '../models/Sight.js';
+import query from '../database.js';
 
 const injectSightById = async (id) => {
   const res = await query(`SELECT * FROM SIGHTS WHERE id = ${id}`);
@@ -80,7 +80,7 @@ export const updateSight = async (req, res) => {
   }
 };
 
-export const getAllSights = async (req, res) => {
+export const getAllSights = async (_req, res) => {
   try {
     const sights = (await query(`SELECT * FROM SIGHTS ORDER BY "name" ASC`))
       ?.rows;

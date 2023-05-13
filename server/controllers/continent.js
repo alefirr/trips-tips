@@ -1,3 +1,5 @@
+import query from '../database.js';
+
 export const getAllContinents = async (_req, res) => {
   try {
     const continents = (

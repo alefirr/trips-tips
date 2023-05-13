@@ -1,11 +1,14 @@
-import Type from '../models/Type.js';
+import query from '../database.js';
 
-export const getAllTypes = async (req, res) => {
+export const getAllTypes = async (_req, res) => {
   try {
-    const types = await Type.find();
-    if (!types) {
+    const types = (await query(`SELECT * FROM TYPES ORDER BY "name" ASC`))
+      ?.rows;
+
+    if (!types.length) {
       return res.status(400).json({ message: 'No types' });
     }
+
     res.json(types);
   } catch (e) {
     res.status(400).json({
