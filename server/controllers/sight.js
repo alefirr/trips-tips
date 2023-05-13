@@ -1,32 +1,37 @@
 import Sight from '../models/Sight.js';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
+
+const injectSightById = async (id) => {
+  const res = await query(`SELECT * FROM SIGHTS WHERE id = ${id}`);
+  return res?.rows?.[0];
+};
 
 export const addSight = async (req, res) => {
   try {
     const { img, name, text, city, type } = req.body;
-    const isAdded = await Sight.findOne({ name });
+
+    const isAdded = (
+      await query(
+        `SELECT * FROM SIGHTS WHERE name = '${name}' AND city = ${city}`
+      )
+    )?.rows?.[0];
 
     if (isAdded) {
-      return res.status(400).json({ message: 'This sight already exists' });
+      return res.status(400).json({
+        message: 'The sigth with such name already exists in this city',
+      });
     }
 
-    // if (req.files) {
-    //   let fileName = Date.now().toString() + req.files.image.name;
-    //   const __dirname = dirname(fileURLToPath(import.meta.url));
-    //   req.files.image.mv(path.join(__dirname, '..', 'uploads', fileName));
-    // }
-    const newSight = new Sight({
+    await query(
+      `INSERT INTO SIGHTS (name, text, img, type, city) VALUES ('${name}', '${text}', '${img}', '${type}', ${city})`
+    );
+
+    res.json({
       name,
       text,
       img,
       type,
       city,
     });
-
-    await newSight.save();
-
-    res.json(newSight);
   } catch (e) {
     res.status(400).json({
       message: 'Error occured during adding sight',
@@ -37,16 +42,34 @@ export const addSight = async (req, res) => {
 
 export const updateSight = async (req, res) => {
   try {
-    const { name, text, _id: id, type, city, img } = req.body;
-    const sight = await Sight.findById(id);
+    const { name, text, id, type, city, img } = req.body;
+
+    const isAdded = (
+      await query(
+        `SELECT * FROM SIGHTS WHERE name = '${name}' AND city = ${city} AND id != ${id}`
+      )
+    )?.rows?.[0];
+
+    if (isAdded) {
+      return res.status(400).json({
+        message: 'The sight with such name already exists in this city',
+      });
+    }
+
+    const sight = await injectSightById(id);
+
     if (sight) {
-      sight.name = name;
-      sight.text = text;
-      sight.type = type;
-      sight.city = city;
-      sight.img = img;
-      await sight.save();
-      return res.json(sight);
+      await query(
+        `UPDATE SIGHTS SET name = '${name}', text = '${text}', type = '${type}', city = ${city}, img = '${img}' WHERE id = ${id}`
+      );
+
+      return res.json({
+        name,
+        text,
+        type,
+        city,
+        img,
+      });
     }
     res.status(400).json({ message: 'No such sight' });
   } catch (e) {
@@ -59,10 +82,13 @@ export const updateSight = async (req, res) => {
 
 export const getAllSights = async (req, res) => {
   try {
-    const sights = await Sight.find();
-    if (!sights) {
-      return res.status(400).json({ message: 'No sights' });
+    const sights = (await query(`SELECT * FROM SIGHTS ORDER BY "name" ASC`))
+      ?.rows;
+
+    if (!sights?.length) {
+      return res.status(400).json({ message: 'No sights!' });
     }
+
     res.json(sights);
   } catch (e) {
     res.status(400).json({
@@ -74,10 +100,12 @@ export const getAllSights = async (req, res) => {
 
 export const getSightById = async (req, res) => {
   try {
-    const sight = await Sight.findById(req.params.id);
+    const sight = await injectSightById(req.params.id);
+
     if (!sight) {
       return res.status(400).json({ message: 'No such sight' });
     }
+
     res.json(sight);
   } catch (e) {
     res.status(400).json({
@@ -89,10 +117,13 @@ export const getSightById = async (req, res) => {
 
 export const removeSight = async (req, res) => {
   try {
-    const sight = await Sight.findByIdAndDelete(req.params.id);
+    const sight = await injectSightById(req.params.id);
+
     if (!sight) {
       return res.status(400).json({ message: 'No such sight' });
     }
+
+    await query(`DELETE FROM SIGHTS WHERE id = ${req.params.id}`);
 
     res.json({ message: 'Sight was deleted' });
   } catch (e) {
