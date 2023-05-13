@@ -9,11 +9,16 @@ export const addCity = async (req, res) => {
   try {
     const { name, text, country, isCapital, population } = req.body;
 
-    const isAdded = (await query(`SELECT * FROM CITIES WHERE name = '${name}'`))
-      ?.rows?.[0];
+    const isAdded = (
+      await query(
+        `SELECT * FROM CITIES WHERE name = '${name}' AND country = ${country}`
+      )
+    )?.rows?.[0];
 
     if (isAdded) {
-      return res.status(400).json({ message: 'This city already exists' });
+      return res.status(400).json({
+        message: 'City with such name already exists in this country',
+      });
     }
 
     await query(
@@ -54,17 +59,17 @@ export const updateCity = async (req, res) => {
     const city = await injectCityById(id);
 
     if (city) {
-      city.name = name;
-      city.text = text;
-      city.country = country;
-      city.isCapital = isCapital;
-      city.population = population;
-
       await query(
         `UPDATE CITIES SET name = '${name}', text = '${text}', country = ${country}, isCapital = ${isCapital}, population = ${population} WHERE id = ${id}`
       );
 
-      return res.json(city);
+      return res.json({
+        name,
+        text,
+        country,
+        isCapital,
+        population,
+      });
     }
 
     res.status(400).json({ message: 'No such city' });
@@ -85,7 +90,7 @@ export const getAllCities = async (_req, res) => {
       return res.status(400).json({ message: 'No cities!' });
     }
 
-    res.json(countries);
+    res.json(cities);
   } catch (e) {
     res.status(400).json({
       message: 'Error occured during getting cities',

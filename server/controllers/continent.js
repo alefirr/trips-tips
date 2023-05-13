@@ -8,7 +8,7 @@ export const getAllContinents = async (_req, res) => {
       return res.status(400).json({ message: 'No continents' });
     }
 
-    res.json(countries);
+    res.json(continents);
   } catch (e) {
     res.status(400).json({
       message: 'Error during getting all continents',

@@ -49,15 +49,11 @@ export const updateCountry = async (req, res) => {
     const country = await injectCountryById(id);
 
     if (country) {
-      country.name = name;
-      country.text = text;
-      country.continent = continent;
-
       await query(
         `UPDATE COUNTRIES SET name = '${name}', text = '${text}', continent = ${continent} WHERE id = ${id}`
       );
 
-      return res.json(country);
+      return res.json({ name, text, continent });
     }
 
     res.status(400).json({ message: 'No such country' });
