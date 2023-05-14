@@ -87,7 +87,6 @@ export const SightPage = () => {
           />
         </div>
       </div>
-      <div className="sight-page-image-container"></div>
     </div>
   );
 };

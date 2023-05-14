@@ -32,7 +32,6 @@ export const ListPage = ({
                 <h4 key={detail.value}>{`${detail.key} : ${detail.value}`}</h4>
               ))}
             </div>
-            <div className="img"></div>
           </div>
           <h2>{`Choose a ${displayEntity} to visit:`}</h2>
         </>
