@@ -1,39 +1,36 @@
 import { useSelector } from 'react-redux';
 import './DataInput.css';
 
-const FileInput = ({ setter }) => (
-  <input type="file" onChange={(e) => setter(e.target.files?.[0])} />
-);
-
-const TextInput = ({ placeholder, value, setter }) => (
+const TextInput = ({ setter, max, value = '', ...props }) => (
   <input
     type="text"
     value={value}
     onChange={(e) => setter(e.target.value)}
-    placeholder={placeholder}
+    maxLength={max}
+    {...props}
   />
 );
 
-const NumberInput = ({ placeholder, value, setter }) => (
+const NumberInput = ({ setter, max, min, ...props }) => (
   <input
     type="number"
-    min={0}
-    max={10000000000}
-    value={value}
+    min={min ?? 0}
+    max={max ?? 800}
     onChange={(e) => setter(e.target.value)}
-    placeholder={placeholder}
+    {...props}
   />
 );
 
-const TextAreaInput = ({ placeholder, value, setter }) => (
+const TextAreaInput = ({ setter, max, value = '', ...props }) => (
   <textarea
     value={value}
     onChange={(e) => setter(e.target.value)}
-    placeholder={placeholder}
+    maxLength={max}
+    {...props}
   />
 );
 
-const CheckboxInput = ({ value, setter }) => (
+const CheckboxInput = ({ value = false, setter }) => (
   <input
     type="checkbox"
     checked={value}
@@ -41,14 +38,14 @@ const CheckboxInput = ({ value, setter }) => (
   />
 );
 
-const SelectInput = ({ optionsSelector, value, setter, placeholder }) => {
+const SelectInput = ({ optionsSelector, setter, placeholder, ...props }) => {
   const options = useSelector(optionsSelector);
 
   return (
-    <select value={value} onChange={(e) => setter(e.target.value)}>
+    <select onChange={(e) => setter(e.target.value)} {...props}>
       <option selected>{placeholder}</option>
-      {options.map(({ _id, name }) => (
-        <option key={_id} value={_id}>
+      {options.map(({ id, name }) => (
+        <option key={id} value={id}>
           {name}
         </option>
       ))}
@@ -57,7 +54,6 @@ const SelectInput = ({ optionsSelector, value, setter, placeholder }) => {
 };
 
 const MAP_ID_TO_INPUT_COMP = {
-  file: FileInput,
   text: TextInput,
   number: NumberInput,
   textarea: TextAreaInput,
@@ -69,21 +65,21 @@ export const DataInput = ({
   id: dataId,
   type,
   label,
-  data,
+  value,
   setData,
+  isError,
   ...inputData
 }) => {
-  const value = data[dataId] || '';
-  const setter = (value) => setData((prev) => ({ ...prev, [dataId]: value }));
-
-  const props = { ...inputData, value, setter };
-
   const InputComp = MAP_ID_TO_INPUT_COMP[type];
+
+  const style = isError ? { border: '2px solid red' } : {};
+
+  const setter = (val) => setData((prev) => ({ ...prev, [dataId]: val }));
 
   return (
     <div className="input">
       <label>{label}</label>
-      <InputComp {...props} />
+      <InputComp value={value} setter={setter} style={style} {...inputData} />
     </div>
   );
 };

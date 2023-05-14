@@ -19,6 +19,7 @@ export const EditPage = ({
   const initialData = useSelector(selector || (() => null));
 
   const [data, setData] = useState(initialData || {});
+  const [errorData, setErrorData] = useState({});
 
   useEffect(() => {
     preloaders.forEach((preloader) => dispatch(preloader()));
@@ -27,11 +28,25 @@ export const EditPage = ({
 
   const submitHandler = async () => {
     try {
+      inputs.forEach((input) => {
+        if (
+          !input.isOptional &&
+          (data[input.id] === '' || data[input.id] === undefined)
+        ) {
+          setErrorData((prev) => ({ ...prev, [input.id]: true }));
+          throw new Error('Please fill all required fields');
+        }
+      });
+
       const res = await dispatch(dispatcher(data));
-      navigate(`/${entity}/${res.payload._id}`);
+
+      navigate(`/${entity}/${res.payload.id}`);
     } catch (e) {
-      const errorTitle = e.payload?.message || 'Something went wrong :(';
+      const errorTitle =
+        e.payload?.message || e.message || 'Something went wrong :(';
+
       const errorText = e.payload?.e || '';
+
       setError([errorTitle, errorText]);
     }
   };
@@ -48,7 +63,8 @@ export const EditPage = ({
         {inputs.map((inputData) => (
           <DataInput
             key={inputData.id}
-            data={data}
+            value={data[inputData.id]}
+            isError={errorData[inputData.id]}
             setData={setData}
             {...inputData}
           />
