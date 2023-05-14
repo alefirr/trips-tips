@@ -2,8 +2,6 @@ export { EditCityPage } from './EditCityPage';
 export { EditCountryPage } from './EditCountryPage';
 export { EditSightPage } from './EditSightPage';
 export { MainPage } from './MainPage';
-export { LoginPage } from './LoginPage';
-export { RegisterPage } from './RegisterPage';
 export { CountryPage } from './CountryPage';
 export { CityPage } from './CityPage';
 export { SightPage } from './SightPage';
