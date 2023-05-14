@@ -31,7 +31,7 @@ export const CountryPage = () => {
     for (let key in country) {
       switch (key) {
         case 'text':
-          details.push({ key: 'Info', value: country[key] });
+          details.push({ key: 'Info', value: country[key] || 'Empty' });
           break;
         case 'continent_id':
           const continent = continents.find(

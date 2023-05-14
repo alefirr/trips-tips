@@ -19,7 +19,7 @@ export const addCountry = async (req, res) => {
 
     const id = (
       await query(
-        `INSERT INTO COUNTRIES (name, text, continent) VALUES ('${name}', '${text}', ${continent_id}) RETURNING id`
+        `INSERT INTO COUNTRIES (name, text, continent_id) VALUES ('${name}', '${text}', ${continent_id}) RETURNING id`
       )
     ).rows?.[0]?.id;
 
@@ -55,7 +55,7 @@ export const updateCountry = async (req, res) => {
         `UPDATE COUNTRIES SET name = '${name}', text = '${text}', continent_id = ${continent_id} WHERE id = ${id}`
       );
 
-      return res.json({ name, text, continent_id });
+      return res.json({ name, text, continent_id, id });
     }
 
     res.status(400).json({ message: 'No such country' });

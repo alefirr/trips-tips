@@ -31,7 +31,7 @@ export const CityPage = () => {
     for (let key in city) {
       switch (key) {
         case 'text':
-          details.push({ key: 'Info', value: city[key] });
+          details.push({ key: 'Info', value: city[key] || 'Empty' });
           break;
         case 'country_id':
           const country = countries.find((country) => country.id === city[key]);

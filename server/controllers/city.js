@@ -67,6 +67,7 @@ export const updateCity = async (req, res) => {
       );
 
       return res.json({
+        id,
         name,
         text,
         country_id,

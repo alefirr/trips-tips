@@ -7,7 +7,7 @@ const injectSightById = async (id) => {
 
 export const addSight = async (req, res) => {
   try {
-    const { name, text, city, type } = req.body;
+    const { name, text, city_id, types } = req.body;
 
     const isAdded = (
       await query(
@@ -23,16 +23,22 @@ export const addSight = async (req, res) => {
 
     const id = (
       await query(
-        `INSERT INTO SIGHTS (name, text, type, city) VALUES ('${name}', '${text}', '${type}', ${city_id}) RETURNING id`
+        `INSERT INTO SIGHTS (name, text, city_id) VALUES ('${name}', '${text}', ${city_id}) RETURNING id`
       )
     ).rows?.[0]?.id;
+
+    await query(
+      `INSERT INTO SIGHT_TAGS (sight_id, tag_id) VALUES ${types
+        .map((type) => `(${id}, ${type})`)
+        .join(', ')}`
+    );
 
     res.json({
       id,
       name,
+      types,
       text,
-      type,
-      city,
+      city_id,
     });
   } catch (e) {
     res.status(400).json({
@@ -44,7 +50,7 @@ export const addSight = async (req, res) => {
 
 export const updateSight = async (req, res) => {
   try {
-    const { name, text, id, type, city_id } = req.body;
+    const { name, text, id, types, city_id } = req.body;
 
     const isAdded = (
       await query(
@@ -62,14 +68,19 @@ export const updateSight = async (req, res) => {
 
     if (sight) {
       await query(
-        `UPDATE SIGHTS SET name = '${name}', text = '${text}', city_id = ${city_id}, WHERE id = ${id}`
+        `UPDATE SIGHTS SET name = '${name}', text = '${text}', city_id = ${city_id}, WHERE id = ${id};
+         DELETE FROM SIGHT_TAGS WHERE sight_id = ${id};
+         INSERT INTO SIGHT_TAGS (sight_id, tag_id) VALUES ${types
+           .map((type) => `(${id}, ${type})`)
+           .join(', ')}`
       );
 
       return res.json({
+        id,
         name,
         text,
-        type,
-        city,
+        types,
+        city_id,
       });
     }
     res.status(400).json({ message: 'No such sight' });
@@ -90,7 +101,20 @@ export const getAllSights = async (_req, res) => {
       return res.status(400).json({ message: 'No sights!' });
     }
 
-    res.json(sights);
+    const getSightTypes = async (id) =>
+      (
+        await query(
+          `SELECT * FROM SIGHT_TAGS WHERE sight_id = ${id} ORDER BY "tag_id" ASC`
+        )
+      )?.rows.map((row) => row.tag_id);
+
+    const sigthsTypes = await Promise.all(
+      sights.map((sight) => getSightTypes(sight.id))
+    );
+
+    res.json(
+      sights.map((sight, index) => ({ ...sight, types: sigthsTypes[index] }))
+    );
   } catch (e) {
     res.status(400).json({
       message: 'Error occured during getting sights',
