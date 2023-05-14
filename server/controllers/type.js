@@ -2,8 +2,7 @@ import query from '../database.js';
 
 export const getAllTypes = async (_req, res) => {
   try {
-    const types = (await query(`SELECT * FROM TYPES ORDER BY "name" ASC`))
-      ?.rows;
+    const types = (await query(`SELECT * FROM TAGS ORDER BY "name" ASC`))?.rows;
 
     if (!types.length) {
       return res.status(400).json({ message: 'No types' });

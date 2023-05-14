@@ -17,7 +17,7 @@ export const addSight = async (req, res) => {
 
     if (isAdded) {
       return res.status(400).json({
-        message: 'The sigth with such name already exists in this city',
+        message: 'The sight with such name already exists in this city',
       });
     }
 
