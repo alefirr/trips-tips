@@ -7,11 +7,11 @@ const injectCityById = async (id) => {
 
 export const addCity = async (req, res) => {
   try {
-    const { name, text, country, is_capital, population } = req.body;
+    const { name, text, country_id, is_capital, population } = req.body;
 
     const isAdded = (
       await query(
-        `SELECT * FROM CITIES WHERE name = '${name}' AND country = ${country}`
+        `SELECT * FROM CITIES WHERE name = '${name}' AND country_id = ${country_id}`
       )
     )?.rows?.[0];
 
@@ -21,14 +21,17 @@ export const addCity = async (req, res) => {
       });
     }
 
-    await query(
-      `INSERT INTO CITIES (name, text, country, is_capital, population) VALUES ('${name}', '${text}', ${country}, ${is_capital}, ${population})`
-    );
+    const id = (
+      await query(
+        `INSERT INTO CITIES (name, text, country_id, is_capital, population) VALUES ('${name}', '${text}', ${country_id}, ${is_capital}, ${population}) RETURNING id`
+      )
+    ).rows?.[0]?.id;
 
     res.json({
+      id,
       name,
       text,
-      country,
+      country_id,
       is_capital,
       population,
     });
@@ -42,11 +45,11 @@ export const addCity = async (req, res) => {
 
 export const updateCity = async (req, res) => {
   try {
-    const { name, text, id, country, is_capital, population } = req.body;
+    const { name, text, id, country_id, is_capital, population } = req.body;
 
     const nameExists = (
       await query(
-        `SELECT * FROM CITIES WHERE name = '${name} AND id != ${id} AND country = ${country}'`
+        `SELECT * FROM CITIES WHERE name = '${name} AND id != ${id} AND country_id = ${country_id}'`
       )
     )?.rows?.[0];
 
@@ -60,13 +63,13 @@ export const updateCity = async (req, res) => {
 
     if (city) {
       await query(
-        `UPDATE CITIES SET name = '${name}', text = '${text}', country = ${country}, is_capital = ${is_capital}, population = ${population} WHERE id = ${id}`
+        `UPDATE CITIES SET name = '${name}', text = '${text}', country_id = ${country_id}, is_capital = ${is_capital}, population = ${population} WHERE id = ${id}`
       );
 
       return res.json({
         name,
         text,
-        country,
+        country_id,
         is_capital,
         population,
       });

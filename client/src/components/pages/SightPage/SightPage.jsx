@@ -42,7 +42,7 @@ export const SightPage = () => {
     () => sights.find((sight) => sight.id === sightId),
     [sightId, sights]
   );
-  // const type = useMemo(
+  // const types = useMemo(
   //   () => types.find((type) => type.id === sight?.type),
   //   [sight?.type, types]
   // );

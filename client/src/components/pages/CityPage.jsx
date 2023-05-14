@@ -33,7 +33,7 @@ export const CityPage = () => {
         case 'text':
           details.push({ key: 'Info', value: city[key] });
           break;
-        case 'country':
+        case 'country_id':
           const country = countries.find((country) => country.id === city[key]);
           details.push({ key: 'Country', value: country?.name });
           break;
@@ -44,7 +44,7 @@ export const CityPage = () => {
           });
           break;
         case 'population':
-          details.push({ key: 'Population', value: city[key] });
+          details.push({ key: 'Population', value: city[key] || 'Unknown' });
           break;
         default:
           break;

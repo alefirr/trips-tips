@@ -18,7 +18,7 @@ const inputs = [
     max: 200,
   },
   {
-    id: 'city',
+    id: 'city_id',
     type: 'select',
     label: 'Add sight location:',
     placeholder: 'Select city',
@@ -26,7 +26,7 @@ const inputs = [
   },
   {
     id: 'type',
-    type: 'select',
+    type: 'multiselect',
     label: 'Add sight type:',
     placeholder: 'Select type',
     optionsSelector: (state) => state.type.list,

@@ -7,7 +7,7 @@ const injectCountryById = async (id) => {
 
 export const addCountry = async (req, res) => {
   try {
-    const { name, text, continent } = req.body;
+    const { name, text, continent_id } = req.body;
 
     const isAdded = (
       await query(`SELECT * FROM COUNTRIES WHERE name = '${name}'`)
@@ -17,11 +17,13 @@ export const addCountry = async (req, res) => {
       return res.status(400).json({ message: 'This country already exists' });
     }
 
-    await query(
-      `INSERT INTO COUNTRIES (name, text, continent) VALUES ('${name}', '${text}', ${continent})`
-    );
+    const id = (
+      await query(
+        `INSERT INTO COUNTRIES (name, text, continent) VALUES ('${name}', '${text}', ${continent_id}) RETURNING id`
+      )
+    ).rows?.[0]?.id;
 
-    res.json({ name, text, continent });
+    res.json({ id, name, text, continent_id });
   } catch (e) {
     res.status(400).json({
       message: 'Error occured during creation new country',
@@ -32,7 +34,7 @@ export const addCountry = async (req, res) => {
 
 export const updateCountry = async (req, res) => {
   try {
-    const { name, text, id, continent } = req.body;
+    const { name, text, id, continent_id } = req.body;
 
     const nameExists = (
       await query(
@@ -50,10 +52,10 @@ export const updateCountry = async (req, res) => {
 
     if (country) {
       await query(
-        `UPDATE COUNTRIES SET name = '${name}', text = '${text}', continent = ${continent} WHERE id = ${id}`
+        `UPDATE COUNTRIES SET name = '${name}', text = '${text}', continent_id = ${continent_id} WHERE id = ${id}`
       );
 
-      return res.json({ name, text, continent });
+      return res.json({ name, text, continent_id });
     }
 
     res.status(400).json({ message: 'No such country' });

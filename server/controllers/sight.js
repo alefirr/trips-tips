@@ -11,7 +11,7 @@ export const addSight = async (req, res) => {
 
     const isAdded = (
       await query(
-        `SELECT * FROM SIGHTS WHERE name = '${name}' AND city = ${city}`
+        `SELECT * FROM SIGHTS WHERE name = '${name}' AND city_id = ${city_id}`
       )
     )?.rows?.[0];
 
@@ -21,11 +21,14 @@ export const addSight = async (req, res) => {
       });
     }
 
-    await query(
-      `INSERT INTO SIGHTS (name, text, type, city) VALUES ('${name}', '${text}', '${type}', ${city})`
-    );
+    const id = (
+      await query(
+        `INSERT INTO SIGHTS (name, text, type, city) VALUES ('${name}', '${text}', '${type}', ${city_id}) RETURNING id`
+      )
+    ).rows?.[0]?.id;
 
     res.json({
+      id,
       name,
       text,
       type,
@@ -41,11 +44,11 @@ export const addSight = async (req, res) => {
 
 export const updateSight = async (req, res) => {
   try {
-    const { name, text, id, type, city } = req.body;
+    const { name, text, id, type, city_id } = req.body;
 
     const isAdded = (
       await query(
-        `SELECT * FROM SIGHTS WHERE name = '${name}' AND city = ${city} AND id != ${id}`
+        `SELECT * FROM SIGHTS WHERE name = '${name}' AND city_id = ${city_id} AND id != ${id}`
       )
     )?.rows?.[0];
 
@@ -59,7 +62,7 @@ export const updateSight = async (req, res) => {
 
     if (sight) {
       await query(
-        `UPDATE SIGHTS SET name = '${name}', text = '${text}', type = '${type}', city = ${city}, WHERE id = ${id}`
+        `UPDATE SIGHTS SET name = '${name}', text = '${text}', city_id = ${city_id}, WHERE id = ${id}`
       );
 
       return res.json({

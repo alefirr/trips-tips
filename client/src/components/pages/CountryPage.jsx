@@ -33,7 +33,7 @@ export const CountryPage = () => {
         case 'text':
           details.push({ key: 'Info', value: country[key] });
           break;
-        case 'continent':
+        case 'continent_id':
           const continent = continents.find(
             (continent) => continent.id === country[key]
           );

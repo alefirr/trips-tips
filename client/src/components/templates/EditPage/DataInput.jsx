@@ -42,7 +42,7 @@ const SelectInput = ({ optionsSelector, setter, placeholder, ...props }) => {
   const options = useSelector(optionsSelector);
 
   return (
-    <select onChange={(e) => setter(e.target.value)} {...props}>
+    <select onChange={(e) => setter(+e.target.value)} {...props}>
       <option selected>{placeholder}</option>
       {options.map(({ id, name }) => (
         <option key={id} value={id}>
@@ -53,11 +53,30 @@ const SelectInput = ({ optionsSelector, setter, placeholder, ...props }) => {
   );
 };
 
+const MultiselectInput = ({
+  optionsSelector,
+  setter,
+  placeholder,
+  ...props
+}) => {
+  // const options = useSelector(optionsSelector);
+  // return (
+  //   <select onChange={(e) => setter(e.target.value)} {...props}>
+  //     {options.map(({ id, name }) => (
+  //       <option key={id} value={id}>
+  //         {name}
+  //       </option>
+  //     ))}
+  //   </select>
+  // );
+};
+
 const MAP_ID_TO_INPUT_COMP = {
   text: TextInput,
   number: NumberInput,
   textarea: TextAreaInput,
   select: SelectInput,
+  multiselect: MultiselectInput,
   checkbox: CheckboxInput,
 };
 
@@ -67,6 +86,7 @@ export const DataInput = ({
   label,
   value,
   setData,
+  removeError,
   isError,
   ...inputData
 }) => {
@@ -74,7 +94,10 @@ export const DataInput = ({
 
   const style = isError ? { border: '2px solid red' } : {};
 
-  const setter = (val) => setData((prev) => ({ ...prev, [dataId]: val }));
+  const setter = (val) => {
+    if (isError) removeError();
+    setData((prev) => ({ ...prev, [dataId]: val }));
+  };
 
   return (
     <div className="input">

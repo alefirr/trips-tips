@@ -18,7 +18,7 @@ const inputs = [
     isOptional: true,
   },
   {
-    id: 'country',
+    id: 'country_id',
     type: 'select',
     label: 'Add city location:',
     placeholder: 'Select country',

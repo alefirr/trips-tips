@@ -5,6 +5,22 @@ import { Button } from '../../ui';
 import { DataInput } from './DataInput';
 import './EditPage.css';
 
+const fillDefaultData = (inputs) => {
+  const data = {};
+
+  inputs.forEach((input) => {
+    const defaultValue = {
+      checkbox: false,
+      text: '',
+      textarea: '',
+    }[input.type];
+
+    data[input.id] = defaultValue;
+  });
+
+  return data;
+};
+
 export const EditPage = ({
   selector,
   inputs,
@@ -18,7 +34,7 @@ export const EditPage = ({
 
   const initialData = useSelector(selector || (() => null));
 
-  const [data, setData] = useState(initialData || {});
+  const [data, setData] = useState(initialData || fillDefaultData(inputs));
   const [errorData, setErrorData] = useState({});
 
   useEffect(() => {
@@ -35,6 +51,10 @@ export const EditPage = ({
         ) {
           setErrorData((prev) => ({ ...prev, [input.id]: true }));
           throw new Error('Please fill all required fields');
+        }
+
+        if (data[input.id] === undefined) {
+          data[input.id] = null;
         }
       });
 
@@ -65,6 +85,9 @@ export const EditPage = ({
             key={inputData.id}
             value={data[inputData.id]}
             isError={errorData[inputData.id]}
+            removeError={() =>
+              setErrorData((prev) => ({ ...prev, [inputData.id]: false }))
+            }
             setData={setData}
             {...inputData}
           />
