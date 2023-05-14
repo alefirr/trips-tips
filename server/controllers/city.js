@@ -7,7 +7,7 @@ const injectCityById = async (id) => {
 
 export const addCity = async (req, res) => {
   try {
-    const { name, text, country, isCapital, population } = req.body;
+    const { name, text, country, is_capital, population } = req.body;
 
     const isAdded = (
       await query(
@@ -22,14 +22,14 @@ export const addCity = async (req, res) => {
     }
 
     await query(
-      `INSERT INTO CITIES (name, text, country, isCapital, population) VALUES ('${name}', '${text}', ${country}, ${isCapital}, ${population})`
+      `INSERT INTO CITIES (name, text, country, is_capital, population) VALUES ('${name}', '${text}', ${country}, ${is_capital}, ${population})`
     );
 
     res.json({
       name,
       text,
       country,
-      isCapital,
+      is_capital,
       population,
     });
   } catch (e) {
@@ -42,7 +42,7 @@ export const addCity = async (req, res) => {
 
 export const updateCity = async (req, res) => {
   try {
-    const { name, text, id, country, isCapital, population } = req.body;
+    const { name, text, id, country, is_capital, population } = req.body;
 
     const nameExists = (
       await query(
@@ -60,14 +60,14 @@ export const updateCity = async (req, res) => {
 
     if (city) {
       await query(
-        `UPDATE CITIES SET name = '${name}', text = '${text}', country = ${country}, isCapital = ${isCapital}, population = ${population} WHERE id = ${id}`
+        `UPDATE CITIES SET name = '${name}', text = '${text}', country = ${country}, is_capital = ${is_capital}, population = ${population} WHERE id = ${id}`
       );
 
       return res.json({
         name,
         text,
         country,
-        isCapital,
+        is_capital,
         population,
       });
     }

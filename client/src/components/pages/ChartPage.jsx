@@ -35,7 +35,7 @@ export const ChartPage = () => {
       return data
         .map((item) => {
           const filterdSights = sights.filter(
-            (sight) => sight[dataName] === item._id
+            (sight) => sight[dataName] === item.id
           );
           return { name: item.name, value: filterdSights.length };
         })

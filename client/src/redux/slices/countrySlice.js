@@ -47,7 +47,7 @@ export const updateCountry = createAsyncThunk(
   async (updatedCountry) => {
     try {
       const { data } = await axios.put(
-        `/countries/${updatedCountry._id}`,
+        `/countries/${updatedCountry.id}`,
         updatedCountry
       );
       return data;
@@ -91,7 +91,7 @@ export const countrySlice = createSlice({
     [removeCountry.fulfilled]: (state, action) => {
       state.loading = false;
       state.list = state.list.filter(
-        (country) => country._id !== action.payload._id
+        (country) => country.id !== action.payload.id
       );
     },
     [removeCountry.rejected]: (state) => {
@@ -104,7 +104,7 @@ export const countrySlice = createSlice({
     [updateCountry.fulfilled]: (state, action) => {
       state.loading = false;
       const index = state.list.findIndex(
-        (country) => country._id === action.payload._id
+        (country) => country.id === action.payload.id
       );
       state.list[index] = action.payload;
     },

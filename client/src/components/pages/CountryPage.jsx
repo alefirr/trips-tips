@@ -19,7 +19,7 @@ export const CountryPage = () => {
   }, [countries.length, dispatch]);
 
   const country = useMemo(
-    () => countries.find((country) => country._id === countryId),
+    () => countries.find((country) => country.id === countryId),
     [countries, countryId]
   );
 
@@ -34,7 +34,7 @@ export const CountryPage = () => {
           break;
         case 'continent':
           const continent = continents.find(
-            (continent) => continent._id === country[key]
+            (continent) => continent.id === country[key]
           );
 
           details.push({ key: 'Continent', value: continent?.name });

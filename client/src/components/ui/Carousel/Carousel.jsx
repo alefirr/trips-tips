@@ -43,7 +43,7 @@ export const Carousel = ({ tiles, entityRoute }) => {
         (tile, index) =>
           index >= leftCounter &&
           index <= rightCounter && (
-            <Tile tile={tile} route={entityRoute} key={tile._id} />
+            <Tile tile={tile} route={entityRoute} key={tile.id} />
           )
       )}
       <Button

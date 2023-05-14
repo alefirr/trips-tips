@@ -38,7 +38,7 @@ export const updateSight = createAsyncThunk(
   async (updatedSight) => {
     try {
       const { data } = await axios.put(
-        `/sights/${updatedSight._id}`,
+        `/sights/${updatedSight.id}`,
         updatedSight
       );
       return data;
@@ -81,9 +81,7 @@ export const sightSlice = createSlice({
     },
     [removeSight.fulfilled]: (state, action) => {
       state.loading = false;
-      state.list = state.list.filter(
-        (sight) => sight._id !== action.payload._id
-      );
+      state.list = state.list.filter((sight) => sight.id !== action.payload.id);
     },
     [removeSight.rejected]: (state) => {
       state.loading = false;
@@ -95,7 +93,7 @@ export const sightSlice = createSlice({
     [updateSight.fulfilled]: (state, action) => {
       state.loading = false;
       const index = state.list.findIndex(
-        (sight) => sight._id === action.payload._id
+        (sight) => sight.id === action.payload.id
       );
       state.list[index] = action.payload;
     },

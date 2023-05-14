@@ -38,7 +38,7 @@ export const updateCity = createAsyncThunk(
   async (updatedCity) => {
     try {
       const { data } = await axios.put(
-        `/cities/${updatedCity._id}`,
+        `/cities/${updatedCity.id}`,
         updatedCity
       );
       return data;
@@ -81,7 +81,7 @@ export const citySlice = createSlice({
     },
     [removeCity.fulfilled]: (state, action) => {
       state.loading = false;
-      state.list = state.list.filter((city) => city._id !== action.payload._id);
+      state.list = state.list.filter((city) => city.id !== action.payload.id);
     },
     [removeCity.rejected]: (state) => {
       state.loading = false;
@@ -93,7 +93,7 @@ export const citySlice = createSlice({
     [updateCity.fulfilled]: (state, action) => {
       state.loading = false;
       const index = state.list.findIndex(
-        (city) => city._id === action.payload._id
+        (city) => city.id === action.payload.id
       );
       state.list[index] = action.payload;
     },

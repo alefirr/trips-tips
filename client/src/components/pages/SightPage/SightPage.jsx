@@ -38,19 +38,19 @@ export const SightPage = () => {
   }, [cities.length, countries.length, sights.length, dispatch, types.length]);
 
   const sight = useMemo(
-    () => sights.find((sight) => sight._id === sightId),
+    () => sights.find((sight) => sight.id === sightId),
     [sightId, sights]
   );
   const type = useMemo(
-    () => types.find((type) => type._id === sight?.type),
+    () => types.find((type) => type.id === sight?.type),
     [sight?.type, types]
   );
   const city = useMemo(
-    () => cities.find((city) => city._id === sight?.city),
+    () => cities.find((city) => city.id === sight?.city),
     [cities, sight?.city]
   );
   const country = useMemo(
-    () => countries.find((country) => country._id === city?.country),
+    () => countries.find((country) => country.id === city?.country),
     [city?.country, countries]
   );
 
@@ -58,8 +58,8 @@ export const SightPage = () => {
     dispatch(getAllSights());
   }, [dispatch]);
 
-  const handleDeleteButtonClick = async (e) => {
-    await dispatch(removeSight(sightId));
+  const handleDeleteButtonClick = async () => {
+    dispatch(removeSight(sightId));
     navigate('/');
   };
 

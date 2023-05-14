@@ -25,13 +25,13 @@ const GET_ALL_DISPATCHERS = {
 };
 
 export const Tile = ({ tile, route }) => {
-  const path = `${route}/${tile._id}`;
+  const path = `${route}/${tile.id}`;
 
   const [isHovered, setIsHovered] = useState(false);
   const dispatch = useDispatch();
 
   const handleDeleteButtonClick = async (e) => {
-    await dispatch(REMOVE_DISPATCHERS[route](tile._id));
+    await dispatch(REMOVE_DISPATCHERS[route](tile.id));
     dispatch(GET_ALL_DISPATCHERS[route]());
   };
 

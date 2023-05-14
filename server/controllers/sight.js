@@ -7,7 +7,7 @@ const injectSightById = async (id) => {
 
 export const addSight = async (req, res) => {
   try {
-    const { img, name, text, city, type } = req.body;
+    const { name, text, city, type } = req.body;
 
     const isAdded = (
       await query(
@@ -22,13 +22,12 @@ export const addSight = async (req, res) => {
     }
 
     await query(
-      `INSERT INTO SIGHTS (name, text, img, type, city) VALUES ('${name}', '${text}', '${img}', '${type}', ${city})`
+      `INSERT INTO SIGHTS (name, text, type, city) VALUES ('${name}', '${text}', '${type}', ${city})`
     );
 
     res.json({
       name,
       text,
-      img,
       type,
       city,
     });
@@ -42,7 +41,7 @@ export const addSight = async (req, res) => {
 
 export const updateSight = async (req, res) => {
   try {
-    const { name, text, id, type, city, img } = req.body;
+    const { name, text, id, type, city } = req.body;
 
     const isAdded = (
       await query(
@@ -60,7 +59,7 @@ export const updateSight = async (req, res) => {
 
     if (sight) {
       await query(
-        `UPDATE SIGHTS SET name = '${name}', text = '${text}', type = '${type}', city = ${city}, img = '${img}' WHERE id = ${id}`
+        `UPDATE SIGHTS SET name = '${name}', text = '${text}', type = '${type}', city = ${city}, WHERE id = ${id}`
       );
 
       return res.json({
@@ -68,7 +67,6 @@ export const updateSight = async (req, res) => {
         text,
         type,
         city,
-        img,
       });
     }
     res.status(400).json({ message: 'No such sight' });

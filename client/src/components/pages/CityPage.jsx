@@ -21,7 +21,7 @@ export const CityPage = () => {
   }, [cities.length, countries.length, dispatch]);
 
   const city = useMemo(
-    () => cities.find((city) => city._id === cityId),
+    () => cities.find((city) => city.id === cityId),
     [cityId, cities]
   );
   const cityName = city?.name;
@@ -33,12 +33,10 @@ export const CityPage = () => {
           details.push({ key: 'Info', value: city[key] });
           break;
         case 'country':
-          const country = countries.find(
-            (country) => country._id === city[key]
-          );
+          const country = countries.find((country) => country.id === city[key]);
           details.push({ key: 'Country', value: country?.name });
           break;
-        case 'isCapital':
+        case 'is_capital':
           details.push({
             key: 'Is it a capital',
             value: city[key] ? 'Yes' : 'No',
