@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
 
-import authRoutes from './routes/auth.js';
 import countryRoutes from './routes/countries.js';
 import cityRoutes from './routes/city.js';
 import sightRoutes from './routes/sight.js';
@@ -23,7 +22,6 @@ app.use(express.json());
 app.use(express.static('uploads'));
 
 // Routes
-app.use('/api/auth', authRoutes);
 app.use('/api/countries', countryRoutes);
 app.use('/api/cities', cityRoutes);
 app.use('/api/sights', sightRoutes);

@@ -7,11 +7,8 @@ import {
   EditCityPage,
   EditCountryPage,
   EditSightPage,
-  LoginPage,
-  RegisterPage,
 } from './components/pages';
 import { Layout } from './components';
-import { ChartPage } from './components/pages/ChartPage';
 
 function App() {
   return (
@@ -53,9 +50,6 @@ function App() {
           path="country/:countryId/city/:cityId/sight/:sightId"
           element={<SightPage />}
         />
-        <Route path="/charts" element={<ChartPage />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="register" element={<RegisterPage />} />
       </Routes>
     </Layout>
   );
