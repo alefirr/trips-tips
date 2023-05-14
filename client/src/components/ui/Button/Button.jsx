@@ -6,7 +6,7 @@ export const Button = ({ title, secondary, type, onClick, width }) => {
     <button
       type={type}
       className={`button ${secondary ? `secondary` : `main`} `}
-      style={{ width: width }}
+      style={{ width }}
       onClick={onClick}
     >
       {title}
