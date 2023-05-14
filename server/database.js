@@ -1,9 +1,11 @@
 import pg from 'pg';
 
-const { query } = new pg.Pool({
+const pool = new pg.Pool({
   host: 'localhost',
-  port: 5432,
+  user: 'postgres',
+  password: 'asdfghjkl',
+  port: 5433,
   database: 'trips-tips',
 });
 
-export default query;
+export default pool.query;
