@@ -25,10 +25,10 @@ const inputs = [
     optionsSelector: (state) => state.city.list,
   },
   {
-    id: 'type',
+    id: 'types',
     type: 'multiselect',
     label: 'Add sight type:',
-    placeholder: 'Select type',
+    placeholder: 'Select types',
     optionsSelector: (state) => state.type.list,
   },
 ];

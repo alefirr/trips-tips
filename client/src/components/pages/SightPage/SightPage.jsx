@@ -44,7 +44,7 @@ export const SightPage = () => {
   );
 
   const typesMap = useMemo(
-    () => types.reduce((acc, type) => ({ ...acc, [type.id]: type }), {}),
+    () => types.reduce((acc, type) => ({ ...acc, [type.id]: type.name }), {}),
     [types]
   );
 
@@ -71,7 +71,7 @@ export const SightPage = () => {
       <div className="sight-page-text-container">
         <h1 className="sight-page-header">{sight?.name}</h1>
         <h4 className="sight-page-info">
-          Types: {types.map((typeId) => typesMap[typeId].name).join(', ')}
+          Types: {sight?.types.map((typeId) => typesMap[typeId]).join(', ')}
         </h4>
         <h4 className="sight-page-info"> City: {city?.name}</h4>
         <h4 className="sight-page-info"> Country: {country?.name}</h4>

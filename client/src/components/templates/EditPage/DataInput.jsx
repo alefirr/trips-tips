@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import Select from 'react-select';
 import './DataInput.css';
 
 const TextInput = ({ setter, max, value = '', ...props }) => (
@@ -38,37 +39,61 @@ const CheckboxInput = ({ value = false, setter }) => (
   />
 );
 
-const SelectInput = ({ optionsSelector, setter, placeholder, ...props }) => {
-  const options = useSelector(optionsSelector);
+const SelectInput = ({ value, optionsSelector, setter, style, ...props }) => {
+  const options = useSelector(optionsSelector).map(({ id, name }) => ({
+    value: id,
+    label: name,
+  }));
 
   return (
-    <select onChange={(e) => setter(+e.target.value)} {...props}>
-      <option selected>{placeholder}</option>
-      {options.map(({ id, name }) => (
-        <option key={id} value={id}>
-          {name}
-        </option>
-      ))}
-    </select>
+    <Select
+      options={options}
+      value={options.find(({ value: val }) => val === value)}
+      onChange={(e) => setter(e.value)}
+      styles={{
+        control: (provided) => ({
+          ...provided,
+          ...style,
+          width: 400,
+        }),
+      }}
+      menuPortalTarget={document.body}
+      menuPosition={'fixed'}
+      {...props}
+    />
   );
 };
 
 const MultiselectInput = ({
+  value,
   optionsSelector,
   setter,
-  placeholder,
+  style,
   ...props
 }) => {
-  // const options = useSelector(optionsSelector);
-  // return (
-  //   <select onChange={(e) => setter(e.target.value)} {...props}>
-  //     {options.map(({ id, name }) => (
-  //       <option key={id} value={id}>
-  //         {name}
-  //       </option>
-  //     ))}
-  //   </select>
-  // );
+  const options = useSelector(optionsSelector).map(({ id, name }) => ({
+    value: id,
+    label: name,
+  }));
+
+  return (
+    <Select
+      isMulti
+      options={options}
+      value={options.filter(({ value: val }) => value?.includes(val))}
+      onChange={(e) => setter(e.map(({ value }) => value))}
+      styles={{
+        control: (provided) => ({
+          ...provided,
+          ...style,
+          width: 400,
+        }),
+      }}
+      menuPortalTarget={document.body}
+      menuPosition={'fixed'}
+      {...props}
+    />
+  );
 };
 
 const MAP_ID_TO_INPUT_COMP = {

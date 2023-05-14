@@ -25,7 +25,9 @@ export const CityPage = () => {
     () => cities.find((city) => city.id === cityId),
     [cityId, cities]
   );
+
   const cityName = city?.name;
+
   const getDetails = () => {
     const details = [];
     for (let key in city) {

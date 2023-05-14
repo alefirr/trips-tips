@@ -28,7 +28,7 @@ export const addSight = async (req, res) => {
     ).rows?.[0]?.id;
 
     await query(
-      `INSERT INTO SIGHT_TAGS (sight_id, tag_id) VALUES ${types
+      `INSERT INTO SIGHTS_TAGS (sight_id, tag_id) VALUES ${types
         .map((type) => `(${id}, ${type})`)
         .join(', ')}`
     );
@@ -68,9 +68,9 @@ export const updateSight = async (req, res) => {
 
     if (sight) {
       await query(
-        `UPDATE SIGHTS SET name = '${name}', text = '${text}', city_id = ${city_id}, WHERE id = ${id};
-         DELETE FROM SIGHT_TAGS WHERE sight_id = ${id};
-         INSERT INTO SIGHT_TAGS (sight_id, tag_id) VALUES ${types
+        `UPDATE SIGHTS SET name = '${name}', text = '${text}', city_id = ${city_id} WHERE id = ${id};
+         DELETE FROM SIGHTS_TAGS WHERE sight_id = ${id};
+         INSERT INTO SIGHTS_TAGS (sight_id, tag_id) VALUES ${types
            .map((type) => `(${id}, ${type})`)
            .join(', ')}`
       );
@@ -104,7 +104,7 @@ export const getAllSights = async (_req, res) => {
     const getSightTypes = async (id) =>
       (
         await query(
-          `SELECT * FROM SIGHT_TAGS WHERE sight_id = ${id} ORDER BY "tag_id" ASC`
+          `SELECT * FROM SIGHTS_TAGS WHERE sight_id = ${id} ORDER BY "tag_id" ASC`
         )
       )?.rows.map((row) => row.tag_id);
 
