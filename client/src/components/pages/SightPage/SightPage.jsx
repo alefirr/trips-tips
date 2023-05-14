@@ -15,7 +15,8 @@ export const SightPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { sightId } = useParams();
+  let { sightId } = useParams();
+  sightId = +sightId;
 
   const countries = useSelector((state) => state.country.list);
   const types = useSelector((state) => state.type.list);
@@ -46,12 +47,12 @@ export const SightPage = () => {
   //   [sight?.type, types]
   // );
   const city = useMemo(
-    () => cities.find((city) => city.id === sight?.city),
-    [cities, sight?.city]
+    () => cities.find((city) => city.id === sight?.city_id),
+    [cities, sight?.city_id]
   );
   const country = useMemo(
-    () => countries.find((country) => country.id === city?.country),
-    [city?.country, countries]
+    () => countries.find((country) => country.id === city?.country_id),
+    [city?.country_id, countries]
   );
 
   useEffect(() => {

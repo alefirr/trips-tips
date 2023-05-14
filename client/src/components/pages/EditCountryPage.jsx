@@ -37,7 +37,7 @@ export const EditCountryPage = () => {
       preloaders={[getAllContinents]}
       selector={
         countryId &&
-        ((state) => state.country.list.find((c) => c.id === countryId))
+        ((state) => state.country.list.find((c) => c.id === +countryId))
       }
     />
   );

@@ -6,7 +6,8 @@ import { ListPage } from '../templates';
 
 export const CountryPage = () => {
   const dispatch = useDispatch();
-  const { countryId } = useParams();
+  let { countryId } = useParams();
+  countryId = +countryId;
 
   const countries = useSelector((state) => state.country.list);
   const continents = useSelector((state) => state.continent.list);
@@ -19,7 +20,7 @@ export const CountryPage = () => {
   }, [countries.length, dispatch]);
 
   const country = useMemo(
-    () => countries.find((country) => country.id === countryId),
+    () => countries.find((country) => country.id === +countryId),
     [countries, countryId]
   );
 
@@ -53,7 +54,7 @@ export const CountryPage = () => {
       displayEntity="city"
       fetcher={getAllCities}
       selector={(state) =>
-        state.city.list.filter((city) => city.country === countryId)
+        state.city.list.filter((city) => city.country_id === countryId)
       }
     />
   );

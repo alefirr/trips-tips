@@ -49,7 +49,7 @@ export const EditCityPage = () => {
       preloaders={[getAllCountries]}
       selector={
         cityId &&
-        ((state) => state.city.list.find((city) => city.id === cityId))
+        ((state) => state.city.list.find((city) => city.id === +cityId))
       }
     />
   );

@@ -43,7 +43,7 @@ export const EditSightPage = () => {
       dispatcher={sightId ? updateSight : addSight}
       preloaders={[getAllTypes, getAllCities]}
       selector={
-        sightId && ((state) => state.sight.list.find((s) => s.id === sightId))
+        sightId && ((state) => state.sight.list.find((s) => s.id === +sightId))
       }
     />
   );

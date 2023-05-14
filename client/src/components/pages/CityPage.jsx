@@ -6,7 +6,8 @@ import { ListPage } from '../templates';
 
 export const CityPage = () => {
   const dispatch = useDispatch();
-  const { cityId } = useParams();
+  let { cityId } = useParams();
+  cityId = +cityId;
 
   const countries = useSelector((state) => state.country.list);
   const cities = useSelector((state) => state.city.list);
@@ -62,7 +63,7 @@ export const CityPage = () => {
       displayEntity="sight"
       fetcher={getAllSights}
       selector={(state) =>
-        state.sight.list.filter((sight) => sight.city === cityId)
+        state.sight.list.filter((sight) => sight.city_id === cityId)
       }
     />
   );
