@@ -42,10 +42,12 @@ export const SightPage = () => {
     () => sights.find((sight) => sight.id === sightId),
     [sightId, sights]
   );
-  // const types = useMemo(
-  //   () => types.find((type) => type.id === sight?.type),
-  //   [sight?.type, types]
-  // );
+
+  const typesMap = useMemo(
+    () => types.reduce((acc, type) => ({ ...acc, [type.id]: type }), {}),
+    [types]
+  );
+
   const city = useMemo(
     () => cities.find((city) => city.id === sight?.city_id),
     [cities, sight?.city_id]
@@ -68,7 +70,9 @@ export const SightPage = () => {
     <div className="sight-page-container">
       <div className="sight-page-text-container">
         <h1 className="sight-page-header">{sight?.name}</h1>
-        {/* <h4 className="sight-page-info"> Type: {type?.name}</h4> */}
+        <h4 className="sight-page-info">
+          Types: {types.map((typeId) => typesMap[typeId].name).join(', ')}
+        </h4>
         <h4 className="sight-page-info"> City: {city?.name}</h4>
         <h4 className="sight-page-info"> Country: {country?.name}</h4>
         <p className="sight-page-text">{sight?.text}</p>
