@@ -5,22 +5,20 @@ import { EditPage } from '../templates';
 
 const inputs = [
   {
-    id: 'img',
-    type: 'file',
-    label: 'Add country picture:',
-  },
-  {
     id: 'name',
     type: 'text',
     label: 'Add country name:',
+    max: 30,
   },
   {
     id: 'text',
     type: 'textarea',
     label: 'Add some info about the country:',
+    max: 200,
+    isOptional: true,
   },
   {
-    id: 'continent',
+    id: 'continent_id',
     type: 'select',
     label: 'Add country location:',
     placeholder: 'Select continent',
@@ -39,7 +37,7 @@ export const EditCountryPage = () => {
       preloaders={[getAllContinents]}
       selector={
         countryId &&
-        ((state) => state.country.list.find((c) => c._id === countryId))
+        ((state) => state.country.list.find((c) => c.id === countryId))
       }
     />
   );

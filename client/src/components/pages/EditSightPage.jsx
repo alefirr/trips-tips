@@ -5,19 +5,17 @@ import { EditPage } from '../templates';
 
 const inputs = [
   {
-    id: 'img',
-    type: 'file',
-    label: 'Add sight picture:',
-  },
-  {
     id: 'name',
     type: 'text',
     label: 'Add sight name:',
+    max: 30,
   },
   {
     id: 'text',
     type: 'textarea',
     label: 'Add some info about the sight:',
+    isOptional: true,
+    max: 200,
   },
   {
     id: 'city',
@@ -45,7 +43,7 @@ export const EditSightPage = () => {
       dispatcher={sightId ? updateSight : addSight}
       preloaders={[getAllTypes, getAllCities]}
       selector={
-        sightId && ((state) => state.sight.list.find((s) => s._id === sightId))
+        sightId && ((state) => state.sight.list.find((s) => s.id === sightId))
       }
     />
   );

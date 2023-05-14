@@ -5,19 +5,17 @@ import { EditPage } from '../templates';
 
 const inputs = [
   {
-    id: 'img',
-    type: 'file',
-    label: 'Add city picture:',
-  },
-  {
     id: 'name',
     type: 'text',
     label: 'Add city name:',
+    max: 30,
   },
   {
     id: 'text',
     type: 'textarea',
     label: 'Add some info about the city:',
+    max: 200,
+    isOptional: true,
   },
   {
     id: 'country',
@@ -27,7 +25,7 @@ const inputs = [
     optionsSelector: (state) => state.country.list,
   },
   {
-    id: 'isCapital',
+    id: 'is_capital',
     type: 'checkbox',
     label: 'Is it a capital?',
   },
@@ -35,6 +33,8 @@ const inputs = [
     id: 'population',
     type: 'number',
     label: 'Add city population:',
+    isOptional: true,
+    max: 1000,
   },
 ];
 
@@ -49,7 +49,7 @@ export const EditCityPage = () => {
       preloaders={[getAllCountries]}
       selector={
         cityId &&
-        ((state) => state.city.list.find((city) => city._id === cityId))
+        ((state) => state.city.list.find((city) => city.id === cityId))
       }
     />
   );
