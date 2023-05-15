@@ -1,7 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Button } from '../ui';
 import axios from 'axios';
+import { Button } from '../ui';
 
 const REQUESTS = [
   {
