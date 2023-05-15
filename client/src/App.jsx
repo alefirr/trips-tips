@@ -7,6 +7,7 @@ import {
   EditCityPage,
   EditCountryPage,
   EditSightPage,
+  QueryPage,
 } from './components/pages';
 import { Layout } from './components';
 
@@ -14,6 +15,7 @@ function App() {
   return (
     <Layout>
       <Routes>
+        <Route path="query" element={<QueryPage />} />
         <Route path="" element={<MainPage />} />
         <Route path="new-country" element={<EditCountryPage />} />
         <Route path="edit-country/:countryId" element={<EditCountryPage />} />

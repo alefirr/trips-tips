@@ -16,16 +16,18 @@ export const Header = () => {
             height="70px"
             className="logo"
           />
-          <h1 id="name-header">Trips&Tips</h1>
+          <NavLink to="query" href="/query">
+            <h1 id="name-header">Trips&Tips</h1>
+          </NavLink>
         </NavLink>
-        <Search />
+        {/* <Search /> */}
         <div className="buttons-header-container">
           <NavLink to="new-sight" href="new-sight">
             <Button title="Add Sight" />
           </NavLink>
-          <NavLink to="login" href="secondary">
+          {/* <NavLink to="login" href="secondary">
             <Button title="Log in" secondary />
-          </NavLink>
+          </NavLink> */}
         </div>
       </div>
     </>

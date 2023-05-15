@@ -5,3 +5,4 @@ export { MainPage } from './MainPage';
 export { CountryPage } from './CountryPage';
 export { CityPage } from './CityPage';
 export { SightPage } from './SightPage';
+export { QueryPage } from './QueryPage';
