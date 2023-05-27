@@ -4,12 +4,12 @@ import { Button } from '../ui';
 
 const REQUESTS = [
   {
-    label: 'Місця які знаходяться в Германії:',
-    query: `
+    label: 'Місця які знаходяться в країні:',
+    query: (country) => `
       SELECT sight.name
       FROM sights sight
       JOIN cities city ON sight.city_id = city.id
-      JOIN countries country ON city.country_id = country.id WHERE country.name = 'Germany';
+      JOIN countries country ON city.country_id = country.id WHERE country.name = '${country}';
     `,
   },
   {
@@ -20,15 +20,17 @@ const REQUESTS = [
       JOIN countries ON cities.country_id = countries.id 
       WHERE cities.population > ${population};
     `,
+    type: 'number',
   },
   {
-    label: 'Країни з кількістю міст більше, ніж 3:',
-    query: `
+    label: 'Країни з кількістю міст більше, ніж:',
+    query: (count) => `
       SELECT DISTINCT country.name
       FROM countries country
       JOIN cities city ON city.country_id = country.id
-      GROUP BY country.id HAVING COUNT(DISTINCT city.id) > 4;
+      GROUP BY country.id HAVING COUNT(DISTINCT city.id) > ${count};
     `,
+    type: 'number',
   },
   {
     label: 'Всі теги що є в місцях міста:',
@@ -37,8 +39,9 @@ const REQUESTS = [
       FROM tags
       INNER JOIN sights_tags ON tags.id = sights_tags.tag_id
       INNER JOIN sights ON sights_tags.sight_id = sights.id
-      INNER JOIN cities ON sights.city_id = cities.id WHERE cities.name = '${city}'
+      INNER JOIN cities ON sights.city_id = cities.id WHERE cities.name = '${city}';
     `,
+    type: 'text',
   },
   {
     label: 'Країни для яких у списку є столиця:',
@@ -49,42 +52,71 @@ const REQUESTS = [
     `,
   },
   {
-    label: 'Назви місць з такими ж тегами, як і Ейфелева вежа:',
-    query: `
+    label: ' Знайти назви місць, які мають всі теги, що й місце:',
+    query: (place) => `
       SELECT s.name
       FROM sights s
-      JOIN sights_tags st ON s.id = st.sight_id
-      JOIN tags t ON st.tag_id = t.id
-      WHERE t.id IN (
-          SELECT t.id
-          FROM sights s
-          JOIN sights_tags st ON s.id = st.sight_id
-          JOIN tags t ON st.tag_id = t.id
-          WHERE s.name = 'Eiffel Tower'
-      )
-      AND s.name != 'Eiffel Tower'
-      GROUP BY s.id
-      HAVING COUNT(DISTINCT t.id) = (
-          SELECT COUNT(DISTINCT t.id)
-          FROM sights s
-          JOIN sights_tags st ON s.id = st.sight_id
-          JOIN tags t ON st.tag_id = t.id
-          WHERE s.name = 'Eiffel Tower'
-      )
-    `,
+      WHERE s.name != '${place}'
+      AND NOT EXISTS
+        ((SELECT sights_tags.tag_id
+          FROM sights_tags
+          WHERE sights_tags.sight_id = s.id)
+          EXCEPT
+          (SELECT sights_tags.tag_id
+          FROM sights_tags
+          WHERE sights_tags.sight_id IN
+	          (SELECT sights.id
+            FROM sights
+            WHERE sights.name = '${place}')))
+      AND NOT EXISTS
+        ((SELECT sights_tags.tag_id
+        FROM sights_tags
+        WHERE sights_tags.sight_id IN
+  	      (SELECT sights.id
+          FROM sights
+          WHERE sights.name = '${place}'))
+        EXCEPT
+        (SELECT sights_tags.tag_id
+         FROM sights_tags
+         WHERE sights_tags.sight_id = s.id)); `,
   },
   {
-    label: `Знайти назви міст в яких є місця, які сполучені з тегами 'Art', 'Park'`,
-    query: `
-      SELECT DISTINCT cities.name 
-      FROM cities
-      INNER JOIN sights ON cities.id = sights.city_id
-      INNER JOIN sights_tags ON sights.id = sights_tags.sight_id
-      INNER JOIN tags ON sights_tags.tag_id = tags.id
-      WHERE tags.name IN ('Art', 'Park')
-      GROUP BY cities.id
-      HAVING COUNT(DISTINCT tags.name) = 2;
-    `,
+    label:
+      'Знайти назви тегів, які повторюються в принаймні усіх місцях міста з назвою:',
+    query: (city) => `
+    SELECT tags.name
+      FROM tags
+      WHERE NOT EXISTS 
+      ((SELECT sights.id
+        FROM sights 
+        WHERE sights.city_id  IN 
+          (SELECT cities.id 
+          FROM cities 
+          WHERE cities.name = '${city}'))
+          EXCEPT
+          (SELECT sights_tags.sight_id 
+            FROM sights_tags
+            WHERE sights_tags.tag_id = tags.id));`,
+    type: 'text',
+  },
+  {
+    label: `Знайти місто в місцях якого є принаймні одне місце з усіма тегами`,
+    query: `SELECT c.name
+            FROM cities c
+            WHERE NOT EXISTS (
+              SELECT t.id
+              FROM tags t
+              WHERE NOT EXISTS (
+                SELECT s.id
+                FROM sights s
+                WHERE s.city_id = c.id
+                AND s.id IN (
+                  SELECT st.sight_id
+                  FROM sights_tags st
+                  WHERE st.tag_id = t.id             
+                )
+              )
+            );`,
   },
 ];
 
@@ -128,6 +160,7 @@ export const QueryPage = () => {
                   setInputs({ ...inputs, [index]: e.target.value })
                 }
                 style={{ marginLeft: 20 }}
+                type={request.type || 'text'}
               />
             )}
             <div style={{ marginLeft: 20 }}>
