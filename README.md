@@ -12,7 +12,7 @@ Inspired by Tripadvisor, Trips&Tips will tell you everything about your next des
   - Cities
   - Sigths
 - Each level has its own editable data
-- All data is displayed modified using the stunning user interface!
+- All data is displayed and modified using the stunning user interface!
 
 ## Main feature
 
