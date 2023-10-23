@@ -1,8 +1,8 @@
-<img src="https://github.com/alefirr/trips-tips/assets/110906154/67750859-97a5-4d96-83f9-e42e80b310bf" width="300">
+# Trips&Tips
 
-## About
-This is a full-stack wep application for managing the whole world sites database!
+<img src="client/public/logo.jpg" width="120">
 
+This is a full-stack wep application for managing the whole world sites database!\
 Inspired by Tripadvisor, Trips&Tips will tell you everything about your next destination!
 
 ## Features
