@@ -2,7 +2,7 @@
 
 <img src="client/public/logo.jpg" width="120">
 
-This is a full-stack wep application for managing the whole world sites database!\
+This is a full-stack wep application for managing the whole world sight database!\
 Inspired by Tripadvisor, Trips&Tips will tell you everything about your next destination!
 
 ## Features
